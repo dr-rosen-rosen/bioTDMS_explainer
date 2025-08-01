@@ -1,0 +1,42 @@
+team-performance-explainer/
+├── app.py                          # Main Streamlit application
+├── config.yaml                     # Configuration settings
+├── requirements.txt                # Python dependencies
+├── data/
+│   ├── ontologies/
+│   │   ├── teamMeasurement.ttl
+│   │   ├── evidence.ttl
+│   │   └── instances.ttl
+│   └── embeddings/
+│       └── construct_embeddings.pkl
+├── src/
+│   ├── __init__.py
+│   ├── ontology/
+│   │   ├── __init__.py
+│   │   ├── loader.py              # RDF graph loading and caching
+│   │   ├── querier.py             # SPARQL query interface
+│   │   └── reasoner.py            # Inference and path finding
+│   ├── search/
+│   │   ├── __init__.py
+│   │   ├── semantic_search.py     # Embedding-based search
+│   │   ├── faceted_search.py      # Filtering interface
+│   │   └── similarity.py          # Pattern matching algorithms
+│   ├── visualization/
+│   │   ├── __init__.py
+│   │   ├── network_viz.py         # Ontology graph visualization
+│   │   ├── evidence_viz.py        # Effect size visualizations
+│   │   └── pattern_builder.py     # Visual pattern construction
+│   ├── explanation/
+│   │   ├── __init__.py
+│   │   ├── generator.py           # Natural language explanations
+│   │   └── templates.py           # Explanation templates
+│   └── components/
+│       ├── __init__.py
+│       ├── ontology_browser.py    # Feature 1: Browse & Visualize
+│       ├── top_down_view.py       # Feature 2: Top-down search
+│       └── bottom_up_view.py      # Feature 3: Bottom-up analysis
+├── tests/
+│   └── ...
+└── scripts/
+    ├── generate_embeddings.py      # Pre-compute construct embeddings
+    └── validate_ontology.py        # Ontology consistency checks

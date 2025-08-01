@@ -1,0 +1,21 @@
+# config.yaml
+data:
+  ontology_path: "data/ontologies"
+  embedding_path: "data/embeddings/construct_embeddings.pkl"
+
+search:
+  embedding_model: "all-MiniLM-L6-v2"
+  max_results: 10
+
+visualization:
+  network_height: "600px"
+  color_scheme:
+    construct: "#FF6B6B"
+    measure: "#4ECDC4"
+    study: "#45B7D1"
+    modality: "#96CEB4"
+    method: "#DDA0DD"
+
+explanation:
+  max_path_length: 5
+  include_evidence: true

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri name="http://example.org/ontology/teamMeasurement" uri="./ont_spec_V3/teamMeasurement.ttl"/>
+    <uri name="http://example.org/ontology/evidence" uri="./ont_spec_V3/evidence.ttl"/>
+    <uri name="http://example.org/ontology/instances" uri="./ont_spec_V3/instances.ttl"/>
+</catalog>

@@ -1,0 +1,1910 @@
+@prefix evid: <http://example.org/ontology/evidence#> .
+@prefix inst: <http://example.org/ontology/instances#> .
+@prefix meas: <http://example.org/ontology/teamMeasurement#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+evid:aggregatesFindingsFrom a owl:ObjectProperty ;
+    rdfs:label "aggregates findings from" ;
+    rdfs:comment "individual studies included in a meta-analysis" ;
+    rdfs:domain evid:metaAnalysis ;
+    rdfs:range evid:primaryStudy .
+
+evid:hasDOI a owl:DatatypeProperty ;
+    rdfs:label "has DOI" ;
+    rdfs:comment "DOI number or link for publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasDependentVariable a owl:ObjectProperty ;
+    rdfs:label "has dependent variable" ;
+    rdfs:comment "Links an effect size to the measure used as the dependent variable in a given analysis." ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range meas:Measure .
+
+evid:hasEffectLevel a owl:DatatypeProperty ;
+    rdfs:label "has effect level" ;
+    rdfs:comment "level of analysis of the effect (e.g., indiviudal, team, cross-level); pertains to measure level, but also the analysis approach" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:hasEffectSizeValue a owl:DatatypeProperty ;
+    rdfs:label "has effect size value" ;
+    rdfs:comment "effect size value" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasFirstAuthor a owl:DatatypeProperty ;
+    rdfs:label "has first author" ;
+    rdfs:comment "first author of publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasIndependentVariable a owl:ObjectProperty ;
+    rdfs:label "has independent variable" ;
+    rdfs:comment "Links an effect size to the measure used as the independent variable in a given analysis." ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range meas:Measure .
+
+evid:hasIndividualSampleSize a owl:DatatypeProperty ;
+    rdfs:label "individual sample size" ;
+    rdfs:comment "number of individuals in the study" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasLowerCI a owl:DatatypeProperty ;
+    rdfs:label "has lower CI" ;
+    rdfs:comment "lower confidence interval for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasNotes a owl:DatatypeProperty ;
+    rdfs:label "notes" ;
+    rdfs:comment "otherwise uncategorized but potentially important information about the effect" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:hasPValue a owl:DatatypeProperty ;
+    rdfs:label "has p value" ;
+    rdfs:comment "p value for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasPubYear a owl:DatatypeProperty ;
+    rdfs:label "has publication year" ;
+    rdfs:comment "year of publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasSE a owl:DatatypeProperty ;
+    rdfs:label "has SE value" ;
+    rdfs:comment "standard error value for effect size estimate" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasSourceConstruct a owl:ObjectProperty ;
+    rdfs:label "has source construct" ;
+    rdfs:comment "Specifies the source construct for a meta-analytic effect" ;
+    rdfs:domain evid:ClassLevelRelationship ;
+    rdfs:range meas:Construct .
+
+evid:hasStudyPopulation a owl:DatatypeProperty ;
+    rdfs:label "has study population" ;
+    rdfs:comment "description of population in the study" ;
+    rdfs:domain evid:Study ;
+    rdfs:range xsd:string .
+
+evid:hasTargetConstruct a owl:ObjectProperty ;
+    rdfs:label "has target construct" ;
+    rdfs:comment "Specifies the target construct for a meta-analytic effect" ;
+    rdfs:domain evid:ClassLevelRelationship ;
+    rdfs:range meas:Construct .
+
+evid:hasTeamSampleSize a owl:DatatypeProperty ;
+    rdfs:label "team sample size" ;
+    rdfs:comment "number of teams in the study" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasUpperCI a owl:DatatypeProperty ;
+    rdfs:label "has upper CI" ;
+    rdfs:comment "upper confidence interval for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:perturbationPhase a owl:DatatypeProperty ;
+    rdfs:label "has perturbation phase" ;
+    rdfs:comment "whehter the effect is for data captured during perturbation, normal, or the entire performance episode" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:reportsEffectSize a owl:ObjectProperty ;
+    rdfs:label "reports effect size" ;
+    rdfs:comment "links effect sizes to the studies that report them" ;
+    rdfs:domain evid:Study ;
+    rdfs:range evid:EffectSize .
+
+evid:reportsStudy a owl:ObjectProperty ;
+    rdfs:label "reports study" ;
+    rdfs:comment "Publication reporting details of an included study." ;
+    rdfs:domain evid:Publication ;
+    rdfs:range evid:Study .
+
+evid:summarizesEffectBetween a owl:ObjectProperty ;
+    rdfs:domain evid:metaAnalysis ;
+    rdfs:range evid:ClassLevelRelationship .
+
+evid:usesEffectSizeMetric a owl:DatatypeProperty ;
+    rdfs:label "type of effect size metric" ;
+    rdfs:comment "effect size type used" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:usesKStudies a owl:DatatypeProperty ;
+    rdfs:label "uses k studies" ;
+    rdfs:comment "number of studies included in a meta-analytic effect" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+inst:meas_016 a meas:Measure ;
+    meas:hasDescription """Time to Kill (TTK) measured the average time from initial
+engagement to enemy neutralization, providing a consistent
+index of combat speed.""" ;
+    meas:hasInterpretation "higher scores are worse" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Time to Kill (TTK)" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_017 a meas:Measure ;
+    meas:hasDescription """Damage Received captured platoon
+health loss, offering insight into defensive coordination and
+situational awareness.""" ;
+    meas:hasInterpretation "higher scores are worse" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Damage Received" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_018 a meas:Measure ;
+    meas:hasDescription "Trust and cooperation metrics were collected from each participant using validated Likert-style surveys administered after each mission phase. Individual responses were aggregated to produce team-level scores, enabling between-group comparisons of perceived cohesion across missions." ;
+    meas:hasLevelOfAnalysis meas:individual ;
+    meas:hasName "Trust" .
+
+inst:meas_019 a meas:Measure ;
+    meas:hasDescription "Trust and cooperation metrics were collected from each participant using validated Likert-style surveys administered after each mission phase. Individual responses were aggregated to produce team-level scores, enabling between-group comparisons of perceived cohesion across missions." ;
+    meas:hasLevelOfAnalysis meas:individual ;
+    meas:hasName "Cooperation" ;
+    meas:includesModality meas:behavior .
+
+inst:meas_020 a meas:Measure ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasInterpretation """High variability suggests
+asynchronous movement;
+low variability indicates
+movement synchrony.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Speed Variability (CV)" .
+
+inst:meas_021 a meas:Measure ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Pairwise correlations (PC) were also computed between individual movements and the team mean to assess formation synchronicity at both the section and platoon levels." ;
+    meas:hasInterpretation """Higher correlation indicates
+members maintaining
+consistent spacing; low
+correlation may reflect
+uncoordinated movement.""" ;
+    meas:hasName "Pairwise Movement Correlation (Distance)" ;
+    meas:usesMethod inst:meas_021_method .
+
+inst:meas_022 a meas:Measure ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasInterpretation """Higher CV suggests more
+dispersed formations; lower
+CV indicates tighter
+formations.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Distance from Platoon (CV)" .
+
+inst:meas_023 a meas:Measure ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasInterpretation """Higher CV suggests
+increased variability in
+spacing; lower CV reflects
+more consistent movement.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Distance from Section (CV)" .
+
+inst:meas_024 a meas:Measure ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. RR measured the proportion of repeated communication sequences, with higher values indicating stable patterns." ;
+    meas:hasInterpretation """High RR suggests stable and
+repetitive communication
+patterns; low RR indicates
+more variability in
+interactions.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "RR" ;
+    meas:includesModality meas:communication .
+
+inst:meas_025 a meas:Measure ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. DET captured the predictability of sequences, reflecting structured communication." ;
+    meas:hasInterpretation """High DET suggests
+structured and predictable
+communication; low DET
+indicates more fragmented
+or erratic exchanges.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "DET" ;
+    meas:includesModality meas:communication .
+
+inst:meas_026 a meas:Measure ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. Intensity represented the proportion of time team members were actively engaged in communication." ;
+    meas:hasInterpretation """Higher intensity reflects
+greater engagement; lower
+intensity may indicate less
+information exchange or
+disengagement.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "INT" ;
+    meas:includesModality meas:communication .
+
+inst:meas_027 a meas:Measure ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. Centralization assessed the concentration of communication, indicating whether interaction was distributed or dominated by a few." ;
+    meas:hasInterpretation """High centralization suggests
+communication dominance
+by a few members; lower
+values indicate more
+distributed interactions.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "CENT" ;
+    meas:includesModality meas:communication .
+
+inst:meas_028 a meas:Measure ;
+    meas:hasDescription "Measures the stability of physiological coupling between dyads. High determinism suggests stable synchronization in cognitive workload" ;
+    meas:hasInterpretation """High determinism suggests
+ stable synchronization in
+cognitive workload; low
+determinism may indicate
+unstable mental workload
+distribution.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "DET" .
+
+inst:pub_001 a evid:Publication ;
+    evid:hasDOI "https://doi.org/10.1177/00187208251314262"^^xsd:string ;
+    evid:hasFirstAuthor "Gorman"^^xsd:string ;
+    evid:hasPubYear "2025"^^xsd:string,
+        "2025.0"^^xsd:string ;
+    evid:reportsStudy inst:study_001 .
+
+inst:pub_002 a evid:Publication ;
+    evid:hasDOI """https://dx.doi.org/10.1037/
+edu0000904"""^^xsd:string ;
+    evid:hasFirstAuthor "Reitman"^^xsd:string ;
+    evid:hasPubYear "2024"^^xsd:string,
+        "2024.0"^^xsd:string ;
+    evid:reportsStudy inst:study_002 .
+
+inst:pub_003 a evid:Publication ;
+    evid:hasDOI "10.1111/cogs.13398"^^xsd:string ;
+    evid:hasFirstAuthor "Duran"^^xsd:string ;
+    evid:hasPubYear "2024"^^xsd:string,
+        "2024.0"^^xsd:string ;
+    evid:reportsStudy inst:study_003,
+        inst:study_004 .
+
+inst:pub_004 a evid:Publication ;
+    evid:hasDOI "https://doi.org/10.1080/00140139.2018.1557750"^^xsd:string ;
+    evid:hasFirstAuthor "Gorman"^^xsd:string ;
+    evid:hasPubYear "2019"^^xsd:string,
+        "2019.0"^^xsd:string ;
+    evid:reportsStudy inst:study_005 .
+
+inst:pub_005 a evid:Publication ;
+    evid:hasFirstAuthor "Renwick"^^xsd:string ;
+    evid:reportsStudy inst:study_006 .
+
+inst:pub_006 a evid:Publication ;
+    evid:hasDOI "10.1037/a0033125"^^xsd:string ;
+    evid:hasFirstAuthor "Strang"^^xsd:string ;
+    evid:hasPubYear "2014.0"^^xsd:string ;
+    evid:reportsStudy inst:study_007 .
+
+inst:pub_007 a evid:Publication ;
+    evid:hasFirstAuthor "Fischer"^^xsd:string ;
+    evid:hasPubYear "2007.0"^^xsd:string ;
+    evid:reportsStudy inst:study_008 .
+
+inst:pub_008 a evid:Publication ;
+    evid:hasDOI "10.1109/SLT.2012.6424258"^^xsd:string ;
+    evid:hasFirstAuthor "Friedberg"^^xsd:string ;
+    evid:hasPubYear "2012.0"^^xsd:string ;
+    evid:reportsStudy inst:study_009 .
+
+inst:pub_009 a evid:Publication ;
+    evid:hasDOI "10.1177/15553434251328835"^^xsd:string ;
+    evid:hasFirstAuthor "Johnson"^^xsd:string ;
+    evid:hasPubYear "2025.0"^^xsd:string ;
+    evid:reportsStudy inst:study_010 .
+
+meas:CNS a owl:Class ;
+    rdfs:subClassOf meas:physiology .
+
+meas:Lexical a owl:Class ;
+    rdfs:comment "Measured derived from an anlysis of the specific words used during communication (e.g., mirroring word choice)" ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:activityTracking a owl:Class ;
+    rdfs:comment "Measures derived from task performance processes (e.g., button pushes, activity tracking, mouse movement)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:cardiovascular a owl:Class ;
+    rdfs:subClassOf meas:sympathetic .
+
+meas:cognition a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:cognitiveLoad a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:communicationFlow a owl:Class ;
+    rdfs:comment "Communication measures derived from temporal dimensions of communicaiton (duration, exchange sequence)" ;
+    rdfs:subClassOf meas:communication .
+
+meas:conflict a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:coordination a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:decisionMaking a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:dyad a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:electrodermal a owl:Class ;
+    rdfs:subClassOf meas:sympathetic .
+
+meas:engagementCommitment a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:eyeMovement a owl:Class ;
+    rdfs:label "eye movement" ;
+    rdfs:comment "Behavioral measures derived from eye tracking and pupliometery" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:gesture a owl:Class ;
+    rdfs:comment "Behavioral measures derived from an analyticTechnique of physical para-linguistic communication (e.g., hand gestures)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "has description" ;
+    rdfs:comment "description of what the measure is" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:hasInterpretation a owl:DatatypeProperty ;
+    rdfs:label "has interpretation" ;
+    rdfs:comment "description of how increasing or decreasing values of the scale are interpreted" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:hasLevelOfAnalysis a owl:ObjectProperty ;
+    rdfs:label "has level of analysis" ;
+    rdfs:comment "Specifies whether the measure is team-level, individual-level, etc." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:levelOfAnalysis ;
+    rdfs:subPropertyOf meas:usesMethod .
+
+meas:hasName a owl:DatatypeProperty ;
+    rdfs:label "has name" ;
+    rdfs:comment "name of measure" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:hasScale a owl:DatatypeProperty ;
+    rdfs:label "has scale" ;
+    rdfs:comment "describes the scale used including type and range" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:includesModality a owl:ObjectProperty ;
+    rdfs:label "includes modality" ;
+    rdfs:comment "Indicates the source modality or signal the measure relies on." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Modality .
+
+meas:measuresConstruct a owl:ObjectProperty ;
+    rdfs:label "measures construct" ;
+    rdfs:comment "Relates a measure to the construct it captures." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Construct .
+
+meas:networkAnalysis a owl:Class ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:observation a owl:Class ;
+    rdfs:comment "Measures generated by external obervers such as trainers, evaluators and assessors, or researchers" ;
+    rdfs:subClassOf meas:Modality .
+
+meas:parasympathetic a owl:Class ;
+    rdfs:subClassOf meas:autonomic .
+
+meas:physicalMovement a owl:Class ;
+    rdfs:comment "Behavioral measures derived from the physical movement of team members (e.g., postural sway, patterns of co-locatoin)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:problemSolving a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:resilience a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:satisfaction a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:semantic a owl:Class ;
+    rdfs:comment "Measures derived from an anlaysis of word meanings inlcuding semantic similarity or other methods using embeddings or classical content coding schemes" ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:sharedMentalModel a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:situationalAwareness a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:somatic a owl:Class ;
+    rdfs:subClassOf meas:PNS .
+
+meas:stress a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:syntactic a owl:Class ;
+    rdfs:comment "Measures derived from part of speach use including sytle matching, pronoun use, and verb tense analyses." ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:taskType a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:teamFamiliarity a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:teamSize a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:usesAnalyticTechnique a owl:ObjectProperty ;
+    rdfs:label "uses analytic technique" ;
+    rdfs:comment "Specifies the analytic approach used to compute the measure." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:analyticTechnique ;
+    rdfs:subPropertyOf meas:usesMethod .
+
+inst:effect_1 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.035"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.031"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_10 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.065"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.402"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_100 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_046 ;
+    evid:hasIndependentVariable inst:meas_048 .
+
+inst:effect_101 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_046 ;
+    evid:hasEffectSizeValue "0.207"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_048 ;
+    evid:hasPValue "0.083"^^xsd:float ;
+    evid:usesEffectSizeMetric "Pearson Correlation"^^xsd:string .
+
+inst:effect_102 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_049 ;
+    evid:hasIndependentVariable inst:meas_050 .
+
+inst:effect_11 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.081"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.379"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_12 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.037"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.443"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_13 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.006"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.488"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_14 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.005"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.491"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_15 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.073"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.359"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_16 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.27"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.087"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_17 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.327"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.048"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_18 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.264"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.092"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_19 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.146"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.344"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_2 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.031"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.441"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_20 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.271"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.225"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_21 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.228"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.263"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_22 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.552"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.049"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_23 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.706"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.011"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_24 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.612"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.03"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_25 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.378"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.022"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_26 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.123"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.274"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_27 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.4"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.016"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_28 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.027"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.446"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_29 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.037"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.428"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_3 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.348"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.032"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_30 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.124"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.261"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_31 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.346"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.08"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_32 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.331"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.09"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_33 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.334"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.095"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_34 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.074"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.388"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_35 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.125"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.316"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_36 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.144"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.291"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_37 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.491"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.005"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_38 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.412"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.016"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_39 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.419"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.006"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_4 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.291"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.063"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_40 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.23"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.124"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_41 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.165"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.205"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_42 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.157"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.217"^^xsd:float ;
+    evid:hasTeamSampleSize 27 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_43 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.337"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.17"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_44 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.309"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.193"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_45 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.465"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.088"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_46 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.667"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.018"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_47 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.736"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.008"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_48 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.66"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_002 ;
+    evid:hasPValue "0.019"^^xsd:float ;
+    evid:hasTeamSampleSize 10 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_49 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_005 ;
+    evid:hasEffectSizeValue "0.841"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_006 ;
+    evid:hasLowerCI "0.735"^^xsd:float ;
+    evid:hasPValue "0.035"^^xsd:float ;
+    evid:hasTeamSampleSize 94 ;
+    evid:hasUpperCI "0.972"^^xsd:float ;
+    evid:usesEffectSizeMetric "odds ratio"^^xsd:string .
+
+inst:effect_5 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "-0.22"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.14"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_50 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_005 ;
+    evid:hasEffectSizeValue "1.05"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_007 ;
+    evid:hasLowerCI "0.894"^^xsd:float ;
+    evid:hasPValue "0.551"^^xsd:float ;
+    evid:hasTeamSampleSize 94 ;
+    evid:hasUpperCI "1.234"^^xsd:float ;
+    evid:usesEffectSizeMetric "odds ratio"^^xsd:string .
+
+inst:effect_51 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_005 ;
+    evid:hasEffectSizeValue "0.854"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_008 ;
+    evid:hasLowerCI "0.639"^^xsd:float ;
+    evid:hasPValue "0.287"^^xsd:float ;
+    evid:hasTeamSampleSize 94 ;
+    evid:hasUpperCI "1.142"^^xsd:float ;
+    evid:usesEffectSizeMetric "odds ratio"^^xsd:string .
+
+inst:effect_52 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_011 ;
+    evid:hasEffectSizeValue "0.42"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_010 ;
+    evid:hasIndividualSampleSize 96 ;
+    evid:hasPValue "0.025"^^xsd:float ;
+    evid:hasTeamSampleSize 32 ;
+    evid:usesEffectSizeMetric "beta"^^xsd:string .
+
+inst:effect_53 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_011 ;
+    evid:hasEffectSizeValue "0.09"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_010 ;
+    evid:hasIndividualSampleSize 96 ;
+    evid:hasPValue "0.602"^^xsd:float ;
+    evid:hasTeamSampleSize 32 ;
+    evid:usesEffectSizeMetric "beta"^^xsd:string .
+
+inst:effect_54 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_009 ;
+    evid:hasEffectSizeValue "0.31"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_010 ;
+    evid:hasIndividualSampleSize 96 ;
+    evid:hasPValue "0.034"^^xsd:float ;
+    evid:hasTeamSampleSize 32 ;
+    evid:usesEffectSizeMetric "beta"^^xsd:string .
+
+inst:effect_55 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "-0.26"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_013 ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_56 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "0.59"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_014 ;
+    evid:hasPValue "0.009"^^xsd:float ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_57 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "-0.25"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_015 ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_58 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "-0.34"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_013 ;
+    evid:hasPValue "0.049"^^xsd:float ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_59 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "0.16"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_014 ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_6 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_004 ;
+    evid:hasEffectSizeValue "0.346"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.033"^^xsd:float ;
+    evid:hasTeamSampleSize 29 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_60 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "0.26"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_015 ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_61 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "-0.05"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_013 ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_62 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "0.45"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_014 ;
+    evid:hasPValue "0.009"^^xsd:float ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_63 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_012 ;
+    evid:hasEffectSizeValue "0.37"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_015 ;
+    evid:hasPValue "0.009"^^xsd:float ;
+    evid:hasTeamSampleSize 30 ;
+    evid:usesEffectSizeMetric "r (partial correlation)"^^xsd:string .
+
+inst:effect_65 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_034 ;
+    evid:hasEffectSizeValue "0.19"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_66 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_035 ;
+    evid:hasEffectSizeValue "-0.1"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_67 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_036 ;
+    evid:hasEffectSizeValue "0.08"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_68 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_037 ;
+    evid:hasEffectSizeValue "-0.06"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_69 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_032 ;
+    evid:hasEffectSizeValue "0.22"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_7 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "-0.004"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.494"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_70 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_033 ;
+    evid:hasEffectSizeValue "-0.2"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_029 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_71 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_034 ;
+    evid:hasEffectSizeValue "-0.29"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_72 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_035 ;
+    evid:hasEffectSizeValue "-0.32"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_73 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_036 ;
+    evid:hasEffectSizeValue "-0.21"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_74 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_037 ;
+    evid:hasEffectSizeValue "-0.29"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_75 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_032 ;
+    evid:hasEffectSizeValue "-0.02"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_76 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_033 ;
+    evid:hasEffectSizeValue "-0.13"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_030 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_77 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_034 ;
+    evid:hasEffectSizeValue "-0.44"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_78 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_035 ;
+    evid:hasEffectSizeValue "-0.56"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_79 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_036 ;
+    evid:hasEffectSizeValue "-0.28"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_8 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.096"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.353"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_80 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_037 ;
+    evid:hasEffectSizeValue "-0.46"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_81 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_032 ;
+    evid:hasEffectSizeValue "0.14"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_82 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_033 ;
+    evid:hasEffectSizeValue "0.08"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_031 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_83 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_034 ;
+    evid:hasEffectSizeValue "-0.45"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_032 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_84 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_035 ;
+    evid:hasEffectSizeValue "-0.12"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_032 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_85 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_036 ;
+    evid:hasEffectSizeValue "-0.08"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_032 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_86 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_037 ;
+    evid:hasEffectSizeValue "-0.29"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_032 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_87 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_034 ;
+    evid:hasEffectSizeValue "-0.45"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_033 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_88 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_035 ;
+    evid:hasEffectSizeValue "-0.1"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_033 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_89 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_036 ;
+    evid:hasEffectSizeValue "0.08"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_033 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_9 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_003 ;
+    evid:hasEffectSizeValue "0.051"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_001 ;
+    evid:hasPValue "0.423"^^xsd:float ;
+    evid:hasTeamSampleSize 18 ;
+    evid:usesEffectSizeMetric "pearson r"^^xsd:string .
+
+inst:effect_90 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_037 ;
+    evid:hasEffectSizeValue "-0.37"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_033 ;
+    evid:usesEffectSizeMetric "Pearson's r product-moment Correlation"^^xsd:string .
+
+inst:effect_91 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_039 .
+
+inst:effect_92 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_040 .
+
+inst:effect_93 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_041 .
+
+inst:effect_94 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_042 .
+
+inst:effect_95 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_043 .
+
+inst:effect_96 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_044 .
+
+inst:effect_97 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_038 ;
+    evid:hasIndependentVariable inst:meas_045 .
+
+inst:effect_98 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_046 ;
+    evid:hasIndependentVariable inst:meas_047 .
+
+inst:effect_99 a evid:EffectSize ;
+    evid:hasDependentVariable inst:meas_046 ;
+    evid:hasEffectSizeValue "-0.236"^^xsd:float ;
+    evid:hasIndependentVariable inst:meas_047 ;
+    evid:hasPValue "0.317"^^xsd:float ;
+    evid:usesEffectSizeMetric "Pearson Correlation"^^xsd:string .
+
+inst:meas_001_method a meas:informationTheoretic .
+
+inst:meas_006 a meas:Measure ;
+    meas:hasDescription "how people converge on similar meanings without the use of strict lexical (symbolic) repetition" ;
+    meas:hasInterpretation "Higher scores reflect greater alignment among speakers" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "semantic alignment" ;
+    meas:hasScale "0 to 1" ;
+    meas:includesModality meas:communicationContent ;
+    meas:usesMethod inst:meas_006_method .
+
+inst:meas_006_method a meas:synchrony .
+
+inst:meas_007 a meas:Measure ;
+    meas:hasDescription "reuse of the same words and phrases from the recent discourse" ;
+    meas:hasInterpretation "Higher scores reflect greater alignment among speakers" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "lexical alignment" ;
+    meas:hasScale "0 to 1" ;
+    meas:includesModality meas:communicationContent ;
+    meas:usesMethod inst:meas_007_method .
+
+inst:meas_007_method a meas:synchrony .
+
+inst:meas_008 a meas:Measure ;
+    meas:hasDescription "reuse of recently heard syntactic structures of their conversational partners in their own speech" ;
+    meas:hasInterpretation "Higher scores reflect greater alignment among speakers" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "syntax alignment" ;
+    meas:hasScale "0 to 1" ;
+    meas:includesModality meas:communicationContent ;
+    meas:usesMethod inst:meas_008_method .
+
+inst:meas_008_method a meas:synchrony .
+
+inst:meas_009 a meas:Measure ;
+    meas:hasDescription "Students individually rated their satisfaction with their communication, cooperation, and agreeableness using 6-point scales. " ;
+    meas:hasInterpretation "Higher scores indicate better percieved collaboration" ;
+    meas:hasName "perceptions of collaboratoin" ;
+    meas:includesModality meas:survey ;
+    meas:usesMethod inst:meas_009_method .
+
+inst:meas_009_method a meas:simpleAggregation .
+
+inst:meas_010_method a meas:simpleAggregation .
+
+inst:meas_011_method a meas:simpleAggregation .
+
+inst:meas_013_method a meas:informationTheoretic .
+
+inst:meas_014_method a meas:informationTheoretic .
+
+inst:meas_015_method a meas:informationTheoretic .
+
+inst:meas_021_method a meas:simpleAggregation .
+
+inst:meas_029_method a meas:simpleAggregation .
+
+inst:meas_030_method a meas:simpleAggregation .
+
+inst:meas_031_method a meas:simpleAggregation .
+
+inst:meas_032_method a meas:CRQA .
+
+inst:meas_033_method a meas:CRQA .
+
+inst:meas_039 a meas:Measure ;
+    meas:hasDescription """Team members’ contri-
+butions were segmented into conversational moves cor-
+responding to Hirokawa’s (19) definition of a functional
+utterance. That is, a unit was an uninterrupted utter-
+ance by a team member that had a discrete problem-
+solving function. As such, a unit could correspond to a
+grammatical sentence, to an independent clause, or to
+several sentences. For each unit we noted its grammat-
+ical form (declarative, interrogative, imperative, or el-
+lipsis) and speaker. The task-related (i.e., problem-solv-
+ing) function of a unit was classified using the coding
+scheme developed by Orasanu and Fischer (35). Main
+and sub-categories plus examples are provided in Ta-
+ble I.""" ;
+    meas:hasInterpretation "See table 1" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:hasScale """The task-related (i.e., problem-solv-
+ing) function of a unit was classified using the coding
+scheme developed by Orasanu and Fischer (35""" ;
+    meas:includesModality meas:communicationContent .
+
+inst:meas_040 a meas:Measure ;
+    meas:hasDescription """Our analyses focused on the
+control structure and interactive patterns in teams, as
+well as on team members’ identification with and affec-
+tive responses to the group. Several LIWC categories
+were exploited for our purposes. The word count cate-
+gory was applied to assess how much each team mem-
+ber talked and whether an individual or individuals
+talked more than others, thus dominating the team’s
+discourse. In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) and how often positive or negative emotion
+words occurred in their communications. The former
+categories were expected to tap team members’ identi-
+fication with the group; the latter to gauge the social
+climate in a team. These LIWC categories were complemented by hand-
+coding team members’ communications for expressions
+of specific interpersonal affect. Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).
+We coded whether or not speakers verbalized affective reactions to teammates, and when they did we further
+noted whether they expressed praise and empathy,
+showed humor or politeness, or tried to appease, or
+were apologetic, patronizing, criticizing, or defensive
+(see Table II for a listing of the categories and exam-
+ples).""" ;
+    meas:hasInterpretation "See talble 2" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:hasScale """Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).""" ;
+    meas:includesModality meas:communicationContent .
+
+inst:meas_041 a meas:Measure ;
+    meas:hasDescription """Our analyses focused on the
+control structure and interactive patterns in teams, as
+well as on team members’ identification with and affec-
+tive responses to the group. Several LIWC categories
+were exploited for our purposes. The word count cate-
+gory was applied to assess how much each team mem-
+ber talked and whether an individual or individuals
+talked more than others, thus dominating the team’s
+discourse. In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) and how often positive or negative emotion
+words occurred in their communications. The former
+categories were expected to tap team members’ identi-
+fication with the group; the latter to gauge the social
+climate in a team. These LIWC categories were complemented by hand-
+coding team members’ communications for expressions
+of specific interpersonal affect. Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).
+We coded whether or not speakers verbalized affective reactions to teammates, and when they did we further
+noted whether they expressed praise and empathy,
+showed humor or politeness, or tried to appease, or
+were apologetic, patronizing, criticizing, or defensive
+(see Table II for a listing of the categories and exam-
+ples).""" ;
+    meas:hasInterpretation "See talble 2" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:hasScale """Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).""" ;
+    meas:includesModality meas:communicationContent .
+
+inst:meas_042 a meas:Measure ;
+    meas:hasDescription """For each scenario we com-
+puted the standard deviation of team members’ word
+count as a measure of variability in team members’
+amount of talk and thus as an indication of their differ-
+ential influence on their team’s interaction. We then
+correlated this measurement with the team’s corre-
+sponding performance score (i.e., point total) to deter-
+mine whether team success was related to a particular
+control structure. """ ;
+    meas:hasInterpretation """Difference in score suggesting that in
+unsuccessful teams one or several team members dom-
+inated the discourse, while talk and, thus, control were
+more equally distributed among team members of suc-
+cessful teams.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:includesModality meas:communication .
+
+inst:meas_043 a meas:Measure ;
+    meas:hasDescription """Analyses of the communication flow between team
+members in successful and unsuccessful teams lend
+further support to this interpretation. For each team
+member, we noted how often the other three team
+members responded to his contributions during a sce-
+nario, and summarized the resulting pattern in a flow
+diagram. We focused on team members’ responses
+rather than on their initiations to characterize their in-
+teractive behavior because team members tended to
+broadcast their communications for everybody to hear,
+frequently without identifying a specific addressee. The
+communication flow typical of unsuccessful teams is
+represented in the right portion of Fig. 2. """ ;
+    meas:hasInterpretation """See fig 2; indicating that balanced and inclusive rela-
+tionships were associated with higher performance.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:hasScale """Scores could range from 0, indicating no vari-
+ance in team members’ interactive relations and, thus, a
+well integrated team, to 1,""" ;
+    meas:includesModality meas:communication .
+
+inst:meas_044 a meas:Measure ;
+    meas:hasDescription """In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) """ ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:includesModality meas:communication .
+
+inst:meas_045 a meas:Measure ;
+    meas:hasDescription """Interactive patterns also reflect how well team mem-
+bers collaborate with one another and get along (42,43).
+On a relational level, collaboration concerns the extent
+to which team members are responsive to one another,
+take up and extend each other’s contributions, and
+build consensus. Moreover, the frequency of team
+members’ agreement relative to their disagreement car-
+ries affective meaning insofar as agreements are consid-
+ered to be positive conversational moves while dis-
+agreements are judged to be negative. Consequently, a
+preponderance of agreement is believed to indicate a
+positive team climate, which, in turn, is assumed nec-
+essary for team success (1).""" ;
+    meas:hasInterpretation "See Table 3; " ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "LIWC" ;
+    meas:includesModality meas:communication .
+
+inst:meas_047_method a meas:simpleAggregation .
+
+inst:meas_048_method a meas:simpleAggregation .
+
+inst:meas_049 a meas:Measure ;
+    meas:hasDescription """based on the
+number of trees ( 1 point) and houses
+( 50 points) destroyed by the fire. Points began at
+100% of the possible points in the scenario and
+were deducted based on the number of trees and
+houses burned during the scenario """ ;
+    meas:hasInterpretation "Higher numbe/percentage, better score" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Team Performance" ;
+    meas:hasScale "0-100%" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_050 a meas:Measure ;
+    meas:hasDescription "Itensity, Speech Rate, Centralization, Complexity, and Interdependence " ;
+    meas:hasInterpretation "See table 4" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Team Communication" ;
+    meas:hasScale "See table 4" .
+
+inst:study_001 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: healthcare workers" ;
+    evid:reportsEffectSize inst:effect_1,
+        inst:effect_10,
+        inst:effect_11,
+        inst:effect_12,
+        inst:effect_13,
+        inst:effect_14,
+        inst:effect_15,
+        inst:effect_16,
+        inst:effect_17,
+        inst:effect_18,
+        inst:effect_19,
+        inst:effect_2,
+        inst:effect_20,
+        inst:effect_21,
+        inst:effect_22,
+        inst:effect_23,
+        inst:effect_24,
+        inst:effect_25,
+        inst:effect_26,
+        inst:effect_27,
+        inst:effect_28,
+        inst:effect_29,
+        inst:effect_3,
+        inst:effect_30,
+        inst:effect_31,
+        inst:effect_32,
+        inst:effect_33,
+        inst:effect_34,
+        inst:effect_35,
+        inst:effect_36,
+        inst:effect_37,
+        inst:effect_38,
+        inst:effect_39,
+        inst:effect_4,
+        inst:effect_40,
+        inst:effect_41,
+        inst:effect_42,
+        inst:effect_43,
+        inst:effect_44,
+        inst:effect_45,
+        inst:effect_46,
+        inst:effect_47,
+        inst:effect_48,
+        inst:effect_5,
+        inst:effect_6,
+        inst:effect_7,
+        inst:effect_8,
+        inst:effect_9 .
+
+inst:study_002 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: undergraduate students" ;
+    evid:reportsEffectSize inst:effect_49,
+        inst:effect_50,
+        inst:effect_51 .
+
+inst:study_003 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: undergraduate students" ;
+    evid:reportsEffectSize inst:effect_52,
+        inst:effect_53,
+        inst:effect_54 .
+
+inst:study_004 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: middle school students" .
+
+inst:study_005 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: undergraduate students" ;
+    evid:reportsEffectSize inst:effect_55,
+        inst:effect_56,
+        inst:effect_57,
+        inst:effect_58,
+        inst:effect_59,
+        inst:effect_60,
+        inst:effect_61,
+        inst:effect_62,
+        inst:effect_63 .
+
+inst:study_006 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: active duty army personnel" .
+
+inst:study_007 evid:hasStudyPopulation "Study Population: puzzle task teams" ;
+    evid:reportsEffectSize inst:effect_65,
+        inst:effect_66,
+        inst:effect_67,
+        inst:effect_68,
+        inst:effect_69,
+        inst:effect_70,
+        inst:effect_71,
+        inst:effect_72,
+        inst:effect_73,
+        inst:effect_74,
+        inst:effect_75,
+        inst:effect_76,
+        inst:effect_77,
+        inst:effect_78,
+        inst:effect_79,
+        inst:effect_80,
+        inst:effect_81,
+        inst:effect_82,
+        inst:effect_83,
+        inst:effect_84,
+        inst:effect_85,
+        inst:effect_86,
+        inst:effect_87,
+        inst:effect_88,
+        inst:effect_89,
+        inst:effect_90 .
+
+inst:study_008 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: U.S. men rescue teams" ;
+    evid:reportsEffectSize inst:effect_91,
+        inst:effect_92,
+        inst:effect_93,
+        inst:effect_94,
+        inst:effect_95,
+        inst:effect_96,
+        inst:effect_97 .
+
+inst:study_009 a evid:primaryStudy ;
+    evid:hasStudyPopulation """Study Population: College undergraduates
+working on semester-long product design. Although most of the
+students were engineering majors (e.g., electrical, mechani-
+cal, and industrial), some teams also had marketing students
+as members. Students completed the project in a product
+realization course or as a senior project. Each group was
+given the option of having their meetings recorded in a spe-
+cially prepared room in exchange for monetary payment""" ;
+    evid:reportsEffectSize inst:effect_100,
+        inst:effect_101,
+        inst:effect_98,
+        inst:effect_99 .
+
+inst:study_010 a evid:primaryStudy ;
+    evid:hasStudyPopulation """Study Population: One hundred twenty participants, ages 18–47, were recruited from a large university in the southwestern United States. Forty
+teams of three participants were formed and individuals randomly assigned to roles of Blue Leader, Red Leader, or Gold Leader. """ ;
+    evid:reportsEffectSize inst:effect_102 .
+
+meas:cohesion a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:crossLevel a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+evid:metaAnalysis a owl:Class ;
+    rdfs:label "meta-analysis" ;
+    rdfs:comment "A meta-analytic study" ;
+    rdfs:subClassOf evid:Study .
+
+inst:meas_011 a meas:Measure ;
+    meas:hasDescription """Each team’s final solution was consensus
+scored by two independent raters on the five challenge criteria.""" ;
+    meas:hasInterpretation "higher scores indicate better solutions" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "CPS task score" ;
+    meas:hasScale "0 to 5" ;
+    meas:measuresConstruct meas:teamPerformance ;
+    meas:usesMethod inst:meas_011_method .
+
+inst:meas_047 a meas:Measure ;
+    meas:hasDescription """Our group entrainment score is adapted from the pair score
+from [14]. This score was selected over the various other
+measures of lexical entrainment due to the way that it looks at
+word use over the entire dialogue rather than in specific turn
+pairs, eliminating any problems due to the corpus challenges
+previously mentioned.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Lexical Entrainment" ;
+    meas:includesModality meas:communicationContent ;
+    meas:usesMethod inst:meas_047_method .
+
+inst:meas_048 a meas:Measure ;
+    meas:hasDescription """the entrainment scores were calcu-
+lated for the first and second half of each session, and the
+difference in scores (second half - first half) was used as a
+final measure of entrainment over the session, which we call
+Change. Others have similarly split dialogue into first and
+second half with success [24]. As noted before, we were able
+to use the entire corpus for this experiment, so the sessions an-
+alyzed increased from 53 to 71""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Lexical Entrainment: Change" ;
+    meas:includesModality meas:communicationContent ;
+    meas:usesMethod inst:meas_048_method .
+
+meas:CRQA a owl:Class ;
+    rdfs:subClassOf meas:informationTheoretic .
+
+meas:PNS a owl:Class ;
+    rdfs:subClassOf meas:physiology .
+
+meas:autonomic a owl:Class ;
+    rdfs:subClassOf meas:PNS .
+
+meas:individual a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:physiology a owl:Class ;
+    rdfs:label "Measures generated from physiological monitoring of team members" ;
+    rdfs:subClassOf meas:Modality .
+
+meas:sympathetic a owl:Class ;
+    rdfs:subClassOf meas:autonomic .
+
+meas:usesMethod a owl:ObjectProperty ;
+    rdfs:label "uses method" ;
+    rdfs:comment "Specifies approach used to compute or derive the measure." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Method .
+
+evid:ClassLevelRelationship a owl:Class .
+
+inst:meas_005 a meas:Measure ;
+    meas:hasDescription "Collaborative problem solving outcome in physics game (no 'coin', silver or gold)" ;
+    meas:hasInterpretation "Higher levels reflect better solutions" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "CPS outcome" ;
+    meas:hasScale "0, 1, 2" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_010 a meas:Measure ;
+    meas:hasDescription """CPS coding framework, which entails coding at the utterance-level
+To compute influence, at each turn of talk whether each
+speaker is speaking is noted and what CPS facets are indicated in their speech,
+if any. Influencewas then computed for each speaker as the AMI from a
+lag 1 binary time series of speaking at time t against the CPS time series
+at time t+ 1. The score is reported at the individual team member level. """ ;
+    meas:hasLevelOfAnalysis meas:crossLevel ;
+    meas:hasName "CPS AMI" ;
+    meas:usesMethod inst:meas_010_method .
+
+inst:meas_013 a meas:Measure ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for communication flow data" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "% max entropy communication" ;
+    meas:includesModality meas:communication ;
+    meas:usesMethod inst:meas_013_method .
+
+inst:meas_014 a meas:Measure ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for system control state data" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "% max entropy controls" ;
+    meas:includesModality meas:behavior ;
+    meas:usesMethod inst:meas_014_method .
+
+inst:meas_015 a meas:Measure ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for vehicle state data" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "% max entropy vehicle" ;
+    meas:includesModality meas:behavior ;
+    meas:usesMethod inst:meas_015_method .
+
+meas:Method a owl:Class .
+
+meas:synchrony a owl:Class ;
+    rdfs:label "syncrhony" ;
+    rdfs:comment "Measure capturing mutual influence " ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+inst:meas_046 a meas:Measure ;
+    meas:hasDescription """The team’s success at the end of
+the semester was evaluated by their instructor. Because of the dramatic differences between the requirements for the differ-
+ent projects, a scientific success metric was created. Each
+team had a set of project-specific design requirements they
+were asked to meet in the beginning of semester. The degree
+to which each requirement was met for each team resulted in
+their final success score. This metric went from 0 to 1, with 1
+requiring that the team exceeded every single requirement.""" ;
+    meas:hasInterpretation """Each
+team had a set of project-specific design requirements they
+were asked to meet in the beginning of semester. The degree
+to which each requirement was met for each team resulted in
+their final success score. This metric went from 0 to 1, with 1
+requiring that the team exceeded every single requirement.""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Project Design Performance" ;
+    meas:hasScale "0 to 1" ;
+    meas:measuresConstruct meas:teamPerformance .
+
+evid:Study a owl:Class .
+
+inst:meas_034 a meas:Measure ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of group cohesion (Rozell &Gunderson, 2003). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasInterpretation "higher scores indicated that participants reported higher levels of that team attribute (i.e., higher/better group cohesion, trust, communication effectiveness, and collective efficacy)." ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Group Cohesion" ;
+    meas:hasScale """7-point scale from 1 (strongly
+disagree) to 7 (strongly agree)""" ;
+    meas:includesModality meas:survey ;
+    meas:measuresConstruct meas:cohesion .
+
+inst:meas_035 a meas:Measure ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of team trust (Naquin & Paulson, 2003). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasInterpretation "higher scores indicated that participants reported higher levels of that team attribute (i.e., higher/better group cohesion, trust, communication effectiveness, and collective efficacy)." ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Team Trust" ;
+    meas:hasScale """7-point scale from 1 (strongly
+disagree) to 7 (strongly agree)""" ;
+    meas:includesModality meas:survey .
+
+inst:meas_036 a meas:Measure ;
+    meas:hasDescription """Team attributes were assessed using post-experiment surveys of effectiveness of team communication (Lyons, Funke, et al., 2011). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of
+agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree).""" ;
+    meas:hasInterpretation "higher scores indicated that participants reported higher levels of that team attribute (i.e., higher/better group cohesion, trust, communication effectiveness, and collective efficacy)." ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Team Communication" ;
+    meas:hasScale """7-point scale from 1 (strongly
+disagree) to 7 (strongly agree)""" ;
+    meas:includesModality meas:survey .
+
+inst:meas_037 a meas:Measure ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of collective efficacy (Riggs & Knight, 1994). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasInterpretation "higher scores indicated that participants reported higher levels of that team attribute (i.e., higher/better group cohesion, trust, communication effectiveness, and collective efficacy)." ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Collective Efficacy" ;
+    meas:hasScale """7-point scale from 1 (strongly
+disagree) to 7 (strongly agree)""" ;
+    meas:includesModality meas:survey .
+
+meas:analyticTechnique a owl:Class ;
+    rdfs:subClassOf meas:Method .
+
+meas:informationTheoretic a owl:Class ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:levelOfAnalysis a owl:Class ;
+    rdfs:subClassOf meas:Method .
+
+meas:survey a owl:Class ;
+    rdfs:comment "Measures generated through self-report of individuals, which may or may not be aggregated to the team level" ;
+    rdfs:subClassOf meas:Modality .
+
+inst:meas_029 a meas:Measure ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (Cross-correlation)""" ;
+    meas:hasName "Cardiac IBI coupling (CC)" ;
+    meas:usesMethod inst:meas_029_method .
+
+inst:meas_030 a meas:Measure ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (%REC—the relative number of matching data point sequences between two time series compared with the total matches possible)""" ;
+    meas:hasName "Cardiac IBI coupling (%REC)" ;
+    meas:usesMethod inst:meas_030_method .
+
+inst:meas_031 a meas:Measure ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (CFEn = cross-fuzzy entropy)""" ;
+    meas:hasName "Cardiac IBI coupling (CFEn)" ;
+    meas:usesMethod inst:meas_031_method .
+
+meas:Modality a owl:Class .
+
+inst:meas_032 a meas:Measure ;
+    meas:hasDescription """Anterior–posterior (AP) head position was recorded using an optical tracking system (Seeing Machines Inc., faceLAB eye trackers) sampled at 60 Hz. PS path lengths and
+standard deviations (both common univariate PS measures) for individuals and dyadic teams are presented in the Appendix.""" ;
+    meas:hasName "PS coupling (%REC)" ;
+    meas:usesMethod inst:meas_032_method .
+
+inst:meas_033 a meas:Measure ;
+    meas:hasDescription """Anterior–posterior (AP) head position was recorded using an optical tracking system (Seeing Machines Inc., faceLAB eye trackers) sampled at 60 Hz. PS path lengths and
+standard deviations (both common univariate PS measures) for individuals and dyadic teams are presented in the Appendix.""" ;
+    meas:hasName "PS coupling (CFEn)" ;
+    meas:usesMethod inst:meas_033_method .
+
+inst:meas_038 a meas:Measure ;
+    meas:hasDescription "Points gained during the scenario. Team points for the high-scoring teams  ranged from 985 to 2585 (M = 2025); for the low-scoring teams from 365 points to 1770 (M = 1098.75)" ;
+    meas:hasInterpretation "Team points for the high-scoring teams  ranged from 985 to 2585 (M = 2025); for the low-scoring teams from 365 points to 1770 (M = 1098.75)" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "Team Performance" ;
+    meas:hasScale "Team points for the high-scoring teams  ranged from 985 to 2585 (M = 2025); for the low-scoring teams from 365 points to 1770 (M = 1098.75)" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_012 a meas:Measure ;
+    meas:hasDescription "weighted composite of a number of system parameters, including time spent in alarm state, number of good photographs per minute, number of missed targets and resources consumed (e.g. fuel; film) and was computed after each mission. Teams began each mission with a score of 1,000, and points were deducted based on the final values of the parameters" ;
+    meas:hasInterpretation "higher scores indicate better team task performance" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "system effectiveness score" ;
+    meas:hasScale "0 to 1000" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+meas:simpleAggregation a owl:Class ;
+    rdfs:comment "Techniques characterizig mean levels and variances" ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:teamPerformance a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+evid:primaryStudy a owl:Class ;
+    rdfs:label "primary study" ;
+    rdfs:comment "a primary study" ;
+    rdfs:subClassOf evid:Study .
+
+meas:communicationContent a owl:Class ;
+    rdfs:comment "Measures derived from an anlaysis of the words used in communicating amonst team members aggregated over time (e.g., to the performance phase or episode level)" ;
+    rdfs:subClassOf meas:communication .
+
+evid:Publication a owl:Class .
+
+meas:communication a owl:Class ;
+    rdfs:subClassOf meas:Modality .
+
+meas:behavior a owl:Class ;
+    rdfs:subClassOf meas:Modality .
+
+meas:Construct a owl:Class .
+
+inst:meas_001 a meas:Measure ;
+    meas:hasDescription "entropy of  symbolic speaker states representing binary (speaking / not speaking) states for each team member" ;
+    meas:hasInterpretation "increases in entropy correspond to increased communication variety" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "communication entropy" ;
+    meas:hasScale "0% to 100%," ;
+    meas:includesModality meas:communication ;
+    meas:usesMethod inst:meas_001_method .
+
+inst:meas_002 a meas:Measure ;
+    meas:hasDescription "discrete recurrence metric of communication pattern repitition" ;
+    meas:hasInterpretation "increases in %DET correspond to increased pattern repetitiveness, and thus, decreased reorganization" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "communication percent determinism ( %DET)" ;
+    meas:hasScale "0% to 100%," ;
+    meas:includesModality meas:communication .
+
+inst:meas_003 a meas:Measure ;
+    meas:hasDescription """an objective performance score
+computed from physiological recordings of the
+mannikins. tTotZ is the time that each patient was outside of a physiological goal state (e.g., goal blood pressure range) and measures the time taken for a team to stabilize the patient in response to training perturbations (e.g., loss of heart rhythm).""" ;
+    meas:hasInterpretation """A lower score on the patient status metric
+indicates better performance because it corresponds to minimizing the time the patient is at critical risk""" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "patient status metric" ;
+    meas:includesModality meas:behavior ;
+    meas:measuresConstruct meas:teamPerformance .
+
+inst:meas_004 a meas:Measure ;
+    meas:hasDescription "observer rated durtion of the event from scenario start to end" ;
+    meas:hasLevelOfAnalysis meas:team ;
+    meas:hasName "time window" .
+
+meas:team a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:Measure a owl:Class .
+
+evid:EffectSize a owl:Class .
+
+[] a owl:Ontology .
+
+[] a owl:Ontology .
+
