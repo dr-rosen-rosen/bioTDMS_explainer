@@ -9,7 +9,7 @@ git clone https://github.com/dr-rosen-rosen/bioTDMS_explainer
 ## Set up venv
 
 ```
-python3 venv -m .teamExplainer
+python3 -m venv .teamExplainer
 source .teamExplainer/bin/activate
 pip install -r requirements.txt
 ```
