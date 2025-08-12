@@ -31,99 +31,153 @@ class OntologyBrowser:
             self._render_statistics_view()
     
     def _render_network_view(self):
-        """Render interactive network visualization"""
-        col1, col2 = st.columns([3, 1])
-        
-        with col2:
-            st.subheader("Network Options")
-            
-            # Debug info
-            if st.checkbox("Show debug info"):
-                st.write(f"Graph has {len(self.querier.graph)} triples")
-                st.write(f"Ontology viz graph: {self.ontology_viz.graph is not None}")
-            
-            # Focus node selection
-            constructs = self.querier.get_all_constructs()
-            focus_options = ["Full Ontology"] + [c['label'] for c in constructs]
-            
-            selected_focus = st.selectbox(
-                "Focus on:",
-                options=focus_options
-            )
-            
-            depth = st.slider(
-                "Neighborhood depth:",
-                min_value=1,
-                max_value=4,
-                value=2
-            )
-            
-            # Visualization options
-            show_labels = st.checkbox("Show labels", value=True)
-            physics_enabled = st.checkbox("Enable physics", value=True)
-        
-        with col1:
-            try:
-                # Create network
-                net = None
-                if selected_focus == "Full Ontology":
-                    net = self.ontology_viz.create_interactive_network()
-                    st.write(f"Network returned: {net is not None}")
-                    st.write(f"Network type: {type(net)}")
-                else:
-                    # Find URI for selected construct
-                    focus_uri = next(
-                        (c['uri'] for c in constructs if c['label'] == selected_focus),
-                        None
-                    )
-                    if focus_uri:
-                        net = self.ontology_viz.create_interactive_network(
-                            focus_node=focus_uri,
-                            depth=depth
-                        )
-                    else:
-                        st.warning("Could not find URI for selected construct")
-                
-                # Save and display
-                # st.write(f"About to check network: net is {net}")
-                
-                if net is not None:
-                    st.success("Network object exists, attempting to display...")
-                    try:
-                        with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w') as tmp:
-                            net.save_graph(tmp.name)
-                            st.success(f"Network saved to {tmp.name}")
-                            
-                            with open(tmp.name, 'r') as f:
-                                html_content = f.read()
-                            st.success(f"HTML content read, length: {len(html_content)}")
-                            
-                            st.components.v1.html(html_content, height=600)
-                    except Exception as e:
-                        st.error(f"Error during save/display: {type(e).__name__}: {str(e)}")
-                        import traceback
-                        st.code(traceback.format_exc())
-                else:
-                    st.error("Network is None - Failed to create network visualization.")
-                    
-                    # Try a simple test
-                    if st.button("Test Simple Network"):
-                        test_net = Network(height="400px", width="100%")
-                        test_net.add_node("1", label="Test Node 1", color="#FF6B6B")
-                        test_net.add_node("2", label="Test Node 2", color="#4ECDC4")
-                        test_net.add_edge("1", "2", title="Test Edge")
+            """Render interactive network visualization"""
+            container = st.container()
+            with container:
+                try:
+                    # Put controls in an expander at the top
+                    with st.expander("⚙️ Network Options", expanded=False):
+                        col1, col2, col3, col4 = st.columns(4)
                         
-                        with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w') as tmp:
-                            test_net.save_graph(tmp.name)
-                            with open(tmp.name, 'r') as f:
-                                html_content = f.read()
-                            st.components.v1.html(html_content, height=400)
+                        with col1:
+                            # Focus node selection
+                            constructs = self.querier.get_all_constructs()
+                            focus_options = ["Full Ontology"] + [c['label'] for c in constructs]
                             
-            except Exception as e:
-                st.error(f"Error creating visualization: {type(e).__name__}: {str(e)}")
-                import traceback
-                st.code(traceback.format_exc())
-    
+                            selected_focus = st.selectbox(
+                                "Focus on:",
+                                options=focus_options
+                            )
+                        
+                        with col2:
+                            depth = st.slider(
+                                "Neighborhood depth:",
+                                min_value=1,
+                                max_value=4,
+                                value=2,
+                                disabled=(selected_focus == "Full Ontology")
+                            )
+                        
+                        with col3:
+                            # Visualization options
+                            show_labels = st.checkbox("Show labels", value=True)
+                            physics_enabled = st.checkbox("Enable physics", value=True)
+                        
+                        with col4:
+                            # Debug info
+                            if st.checkbox("Show debug info"):
+                                st.write(f"Graph has {len(self.querier.graph)} triples")
+                                st.write(f"Ontology viz graph: {self.ontology_viz.graph is not None}")
+                    
+                    # Now render the network using full width
+                    try:
+                        # Create network
+                        net = None
+                        if selected_focus == "Full Ontology":
+                            net = self.ontology_viz.create_interactive_network()
+                            if st.session_state.get('debug_mode', False):
+                                st.write(f"Network returned: {net is not None}")
+                                st.write(f"Network type: {type(net)}")
+                        else:
+                            # Find URI for selected construct
+                            focus_uri = next(
+                                (c['uri'] for c in constructs if c['label'] == selected_focus),
+                                None
+                            )
+                            if focus_uri:
+                                net = self.ontology_viz.create_interactive_network(
+                                    focus_node=focus_uri,
+                                    depth=depth
+                                )
+                            else:
+                                st.warning("Could not find URI for selected construct")
+                        
+                        # Save and display
+                        if net is not None:
+                            # Apply visualization settings
+                            if not show_labels:
+                                for node in net.nodes:
+                                    node['label'] = ''
+                            
+                            if not physics_enabled:
+                                net.set_options("""
+                                {
+                                    "physics": {
+                                        "enabled": false
+                                    }
+                                }
+                                """)
+                            
+                            try:
+                                with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w') as tmp:
+                                    net.save_graph(tmp.name)
+                                    
+                                    with open(tmp.name, 'r') as f:
+                                        html_content = f.read()
+                                    
+                                    # Display with full width and increased height
+                                    # st.components.v1.html(html_content, height=800, scrolling=True)
+                                    # Inject CSS to force full width
+                                    html_content = html_content.replace(
+                                        '<style>',
+                                        '''<style>
+                                        #mynetworkId {
+                                            width: 100% !important;
+                                            position: relative !important;
+                                        }
+                                        .card {
+                                            width: 100% !important;
+                                        }
+                                        body {
+                                            margin: 0;
+                                            padding: 0;
+                                            width: 100%;
+                                        }
+                                        '''
+                                    )
+
+                                    # Also update the container div to use full viewport width
+                                    html_content = html_content.replace(
+                                        'width: 100%',
+                                        'width: 100vw'
+                                    )
+
+                                    # Display with full container width
+                                    st.components.v1.html(
+                                        html_content, 
+                                        height=800, 
+                                        width=800,
+                                        scrolling=True
+                                    )
+                                    
+                            except Exception as e:
+                                st.error(f"Error during save/display: {type(e).__name__}: {str(e)}")
+                                if st.session_state.get('debug_mode', False):
+                                    import traceback
+                                    st.code(traceback.format_exc())
+                        else:
+                            st.error("Failed to create network visualization.")
+                            
+                            # Try a simple test
+                            if st.button("Test Simple Network"):
+                                test_net = Network(height="400px", width="100%")
+                                test_net.add_node("1", label="Test Node 1", color="#FF6B6B")
+                                test_net.add_node("2", label="Test Node 2", color="#4ECDC4")
+                                test_net.add_edge("1", "2", title="Test Edge")
+                                
+                                with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w') as tmp:
+                                    test_net.save_graph(tmp.name)
+                                    with open(tmp.name, 'r') as f:
+                                        html_content = f.read()
+                                    st.components.v1.html(html_content, height=400)
+                                    
+                    except Exception as e:
+                        st.error(f"Error creating visualization: {type(e).__name__}: {str(e)}")
+                        if st.session_state.get('debug_mode', False):
+                            import traceback
+                            st.code(traceback.format_exc())
+                except Exception as e:
+                    st.error(f"Error creating network container: {type(e).__name__}: {str(e)}")
     def _render_tree_view(self):
         """Render hierarchical tree view"""
         st.subheader("Hierarchical View")

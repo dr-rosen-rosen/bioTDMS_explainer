@@ -23,14 +23,14 @@ class OntologyVisualizer:
                                  focus_node: Optional[str] = None,
                                  depth: int = 2) -> Network:
         """Create an interactive network visualization"""
-        print("=== create_interactive_network called ===")
-        st.write("=== create_interactive_network called ===")
+        # print("=== create_interactive_network called ===")
+        # st.write("=== create_interactive_network called ===")
         
-        net = Network(height="600px", width="100%", 
+        net = Network(height="750px", width="100%", 
                      bgcolor="#ffffff", font_color="#000000")
         
-        print("Network object created")
-        st.write(f"Network object created: {net}")
+        # print("Network object created")
+        # st.write(f"Network object created: {net}")
         
         # Configure physics
         net.set_options("""
