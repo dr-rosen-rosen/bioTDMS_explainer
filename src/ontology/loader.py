@@ -29,41 +29,45 @@ class OntologyManager:
         }
     
     def load_ontologies(self) -> Graph:
-        """Load and merge all ontology files"""
+        """Load and merge all ontology files with debug info."""
         if self.graph is not None:
             return self.graph
-            
-        g = Graph()
-        
+
+        merged_graph = Graph()
+
         # Bind namespaces
         for prefix, namespace in self.namespaces.items():
-            g.bind(prefix, namespace)
-        
+            merged_graph.bind(prefix, namespace)
+
         # Check if path exists
         if not self.ontology_path.exists():
             logger.error(f"Ontology path does not exist: {self.ontology_path}")
             st.error(f"Ontology directory not found: {self.ontology_path}")
-            return g
-        
-        # Load ontology files
-        ttl_files = list(self.ontology_path.glob("*.ttl"))
+            return merged_graph
+
+        # Find TTL files
+        #ttl_files = list(self.ontology_path.glob("*.ttl"))
+        #read in only one file instead of entire folder
+        ttl_files = [self.ontology_path / "instances.ttl"]      #THIS MAY CHANGE
         if not ttl_files:
             logger.error(f"No .ttl files found in {self.ontology_path}")
             st.error(f"No ontology files found in {self.ontology_path}")
-            return g
-            
+            return merged_graph
+
+        # Load and merge each TTL
         for ttl_file in ttl_files:
+            g = Graph()
             try:
                 logger.info(f"Loading {ttl_file}")
                 g.parse(ttl_file, format="turtle")
-                logger.info(f"Successfully loaded {ttl_file}")
+                merged_graph += g  # merge into main graph
+                print(f"{ttl_file.name}: {len(g)} triples loaded")
             except Exception as e:
                 logger.error(f"Error loading {ttl_file}: {e}")
                 st.error(f"Error loading {ttl_file}: {e}")
-        
-        logger.info(f"Loaded {len(g)} triples total")
-        self.graph = g
-        return g
+
+        self.graph = merged_graph
+        return merged_graph
     
     def get_statistics(self) -> Dict[str, int]:
         """Get basic statistics about the loaded ontology"""
@@ -75,7 +79,12 @@ class OntologyManager:
             'classes': len(list(self.graph.subjects(RDF.type, OWL.Class))),
             'properties': len(list(self.graph.subjects(RDF.type, OWL.ObjectProperty))) + 
                          len(list(self.graph.subjects(RDF.type, OWL.DatatypeProperty))),
-            'studies': len(list(self.graph.subjects(RDF.type, EVID.Study))),
+            #'studies': len(list(self.graph.subjects(RDF.type, EVID.Study))),
+            # fix studies stat around file format
+            'studies': len(
+                set(self.graph.subjects(RDF.type, EVID.Study))
+                | set(self.graph.subjects(RDF.type, EVID.primaryStudy))
+            ),
             'effects': len(list(self.graph.subjects(RDF.type, EVID.EffectSize))),
             'measures': len(list(self.graph.subjects(RDF.type, MEAS.Measure)))
         }

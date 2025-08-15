@@ -474,7 +474,7 @@ class OntologyBrowser:
         study_query = """
         PREFIX evid: <http://example.org/ontology/evidence#>
         SELECT (COUNT(DISTINCT ?study) as ?count)
-        WHERE { ?study a evid:Study }
+        WHERE { ?study a evid:primaryStudy }            #SEARCH IN PRIMARY STUDIES
         """
         for row in self.querier.graph.query(study_query):
             stats['studies'] = int(row[0]) if row[0] else 0
