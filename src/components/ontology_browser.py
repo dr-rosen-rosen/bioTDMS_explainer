@@ -15,6 +15,9 @@ class OntologyBrowser:
     def render(self):
         """Render the ontology browser interface"""
         st.header("🌐 Ontology Browser")
+
+        # Sidebar details (always available, regardless of view)
+        self._render_sidebar_node_details()
         
         # View selection
         view_type = st.radio(
@@ -178,6 +181,37 @@ class OntologyBrowser:
                             st.code(traceback.format_exc())
                 except Exception as e:
                     st.error(f"Error creating network container: {type(e).__name__}: {str(e)}")
+
+    def _render_sidebar_node_details(self):
+        """Render sidebar panel showing details for a selected node"""
+        st.sidebar.header("🔎 Node Details")
+
+        focus_node = st.sidebar.text_input("Enter node URI or short name:")
+
+        if focus_node:
+            match = None
+            for node in self.ontology_viz.graph.all_nodes():
+                node_str = str(node)
+                if focus_node in node_str or node_str.endswith(focus_node):
+                    match = node_str
+                    break
+
+            if match:
+                node_type = self.ontology_viz._get_node_type(match)
+                annotations = self.ontology_viz._get_annotations(match)
+
+                st.sidebar.markdown(f"**Type:** {node_type}")
+                st.sidebar.markdown(f"**URI:** {match}")
+
+                if annotations:
+                    st.sidebar.subheader("Annotations")
+                    for k, v in annotations.items():
+                        st.sidebar.markdown(f"- **{k}:** {v}")
+                else:
+                    st.sidebar.info("No annotations found for this node.")
+            else:
+                st.sidebar.warning("No matching node found in ontology.")
+
     def _render_tree_view(self):
         """Render hierarchical tree view"""
         st.subheader("Hierarchical View")

@@ -1536,7 +1536,8 @@ inst:study_005 a evid:primaryStudy ;
 inst:study_006 a evid:primaryStudy ;
     evid:hasStudyPopulation "Study Population: active duty army personnel" .
 
-inst:study_007 evid:hasStudyPopulation "Study Population: puzzle task teams" ;
+inst:study_007 a evid:primaryStudy ;
+    evid:hasStudyPopulation "Study Population: puzzle task teams" ;
     evid:reportsEffectSize inst:effect_65,
         inst:effect_66,
         inst:effect_67,

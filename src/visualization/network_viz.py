@@ -25,6 +25,12 @@ class OntologyVisualizer:
         """Create an interactive network visualization"""
         # print("=== create_interactive_network called ===")
         # st.write("=== create_interactive_network called ===")
+
+        #NEW Streamlit controls for user input
+        st.sidebar.subheader("Ontology Viewer Controls")
+        if not focus_node:
+            focus_node = st.sidebar.text_input("Enter node URI/label to focus on", "")
+        depth = st.sidebar.slider("Neighborhood depth", 1, 4, depth)
         
         net = Network(height="750px", width="100%", 
                      bgcolor="#ffffff", font_color="#000000")
@@ -33,37 +39,49 @@ class OntologyVisualizer:
         # st.write(f"Network object created: {net}")
         
         # Configure physics
+        #CHANGED Improved physics & layout ===
         net.set_options("""
-        {
-            "physics": {
-                "enabled": true,
-                "stabilization": {
-                    "enabled": true,
-                    "iterations": 100
-                },
-                "barnesHut": {
-                    "gravitationalConstant": -8000,
-                    "springConstant": 0.001,
-                    "springLength": 200
-                }
-            },
-            "nodes": {
-                "font": {
-                    "size": 12
-                }
-            },
-            "edges": {
-                "smooth": {
-                    "type": "continuous"
-                }
-            }
-        }
-        """)
-        
+           {
+               "physics": {
+                   "stabilization": {"iterations": 200},
+                   "forceAtlas2Based": {
+                       "gravitationalConstant": -50,
+                       "centralGravity": 0.01,
+                       "springLength": 100,
+                       "springConstant": 0.08
+                   },
+                   "solver": "forceAtlas2Based"
+               },
+               "nodes": {
+                   "shape": "dot",
+                   "scaling": {"min": 10, "max": 30},
+                   "font": {"size": 0}   
+               },
+               "edges": {
+                   "smooth": {"type": "continuous"},
+                   "font": {"size": 10, "align": "middle"}
+               },
+               "groups": {
+                   "Construct": {"color": {"background": "#FF6B6B"}},
+                   "Measure": {"color": {"background": "#4ECDC4"}},
+                   "Study": {"color": {"background": "#45B7D1"}},
+                   "Modality": {"color": {"background": "#96CEB4"}},
+                   "Method": {"color": {"background": "#DDA0DD"}},
+                   "Unknown": {"color": {"background": "#CCCCCC"}}
+               }
+           }
+           """)
+
         # Add nodes and edges
         if focus_node:
-            self._add_neighborhood(net, focus_node, depth)
+            resolved = self._resolve_node(focus_node)
+            if resolved:
+                self._add_neighborhood(net, resolved, depth)
+            else:
+                st.error(f"Could not resolve '{focus_node}' to a node in the ontology")
         else:
+            # Avoid "hairball" – full ontology only if explicitly chosen
+            st.warning("No focus node provided. Showing full ontology (may be messy).")
             self._add_full_ontology(net)
         return net
     
@@ -104,8 +122,15 @@ class OntologyVisualizer:
                 node_type = self._get_node_type(s_str)
                 color = node_colors.get(node_type, '#CCCCCC')
                 label = s_str.split('#')[-1] if '#' in s_str else s_str.split('/')[-1]
-                net.add_node(s_str, label=label, color=color, 
-                           title=f"{node_type}: {label}")
+
+                ###NEWWWWW
+                annotations = self._get_annotations(s_str)
+                details = "<br>".join(f"<b>{k}:</b> {v}" for k, v in annotations.items())
+                title = f"{node_type}: {label}"
+                if details:
+                    title += "<br>" + details
+
+                net.add_node(s_str, label=label, color=color)
                 added_nodes.add(s_str)
             
             # Add object node if not a literal
@@ -115,8 +140,15 @@ class OntologyVisualizer:
                     node_type = self._get_node_type(o_str)
                     color = node_colors.get(node_type, '#CCCCCC')
                     label = o_str.split('#')[-1] if '#' in o_str else o_str.split('/')[-1]
-                    net.add_node(o_str, label=label, color=color,
-                               title=f"{node_type}: {label}")
+
+                    #NEWWWWW
+                    annotations = self._get_annotations(o_str)
+                    details = "<br>".join(f"<b>{k}:</b> {v}" for k, v in annotations.items())
+                    title = f"{node_type}: {label}"
+                    #if details:
+                    #    title += "<br>" + details
+
+                    net.add_node(o_str, label=label, color=color, title = title)
                     added_nodes.add(o_str)
                 
                 # Add edge
@@ -154,14 +186,32 @@ class OntologyVisualizer:
                 continue
             
             # Determine node type and color
-            node_type = self._get_node_type(current)
-            color = node_colors.get(node_type, '#CCCCCC')
+            #node_type = self._get_node_type(current)
+            #color = node_colors.get(node_type, '#CCCCCC')
             
             # Add node if not already added
             if current not in added_nodes:
+                node_type = self._get_node_type(current)
+                color = node_colors.get(node_type, '#CCCCCC')
                 label = current.split('#')[-1] if '#' in current else current.split('/')[-1]
-                net.add_node(current, label=label, color=color, 
-                            title=f"{node_type}: {label}")
+
+                annotations = self._get_annotations(current)
+                details = "<br>".join(f"<b>{k}:</b> {v}" for k, v in annotations.items())
+                title = f"{node_type}: {label}"
+                if details:
+                    title += "<br>" + details
+
+                if current_depth == 0:
+                    net.add_node(
+                        current,
+                        label=label,
+                        color="#FFD700",  # gold highlight
+                        size=40,  # make it bigger
+                        title=title
+                    )
+                else:
+                    net.add_node(current, label=label, color=color, title=title)
+                #net.add_node(current, label=label, color=color)
                 added_nodes.add(current)
             
             # Add connected nodes
@@ -181,8 +231,14 @@ class OntologyVisualizer:
                             o_label = o_str.split('#')[-1] if '#' in o_str else o_str.split('/')[-1]
                             o_type = self._get_node_type(o_str)
                             o_color = node_colors.get(o_type, '#CCCCCC')
-                            net.add_node(o_str, label=o_label, color=o_color,
-                                       title=f"{o_type}: {o_label}")
+
+                            annotations = self._get_annotations(o_str)
+                            details = "<br>".join(f"<b>{k}:</b> {v}" for k, v in annotations.items())
+                            title = f"{o_type}: {o_label}"
+                            #if details:
+                            #    title += "<br>" + details
+
+                            net.add_node(o_str, label=o_label, color=o_color, title = title)
                             added_nodes.add(o_str)
                         
                         # Add edge
@@ -203,14 +259,30 @@ class OntologyVisualizer:
                         s_label = s_str.split('#')[-1] if '#' in s_str else s_str.split('/')[-1]
                         s_type = self._get_node_type(s_str)
                         s_color = node_colors.get(s_type, '#CCCCCC')
-                        net.add_node(s_str, label=s_label, color=s_color,
-                                   title=f"{s_type}: {s_label}")
+
+                        annotations = self._get_annotations(s_str)
+                        details = "<br>".join(f"<b>{k}:</b> {v}" for k, v in annotations.items())
+                        title = f"{s_type}: {s_label}"
+                        #if details:
+                        #    title += "<br>" + details
+
+                        net.add_node(s_str, label=s_label, color=s_color, title=title)
                         added_nodes.add(s_str)
                     
                     # Add edge
                     edge_label = str(p).split('#')[-1] if '#' in str(p) else str(p).split('/')[-1]
                     net.add_edge(s_str, current, title=edge_label)
-    
+
+    def _resolve_node(self, label: str) -> Optional[str]:
+        """Resolve a short label or full URI into the actual URI string in the graph"""
+        for s in self.graph.subjects():
+            s_str = str(s)
+            # Try to match local name after # or /
+            local_name = s_str.split('#')[-1] if '#' in s_str else s_str.split('/')[-1]
+            if label == local_name or label == s_str:
+                return s_str
+        return None
+
     def _get_node_type(self, uri: str) -> str:
         """Determine the type of a node"""
         # Quick check based on namespace
@@ -263,3 +335,14 @@ class OntologyVisualizer:
                 return 'Publication'
         
         return "Unknown"
+
+    def _get_annotations(self, uri: str) -> Dict[str, str]:
+        """Return description and interpretation for a node if available"""
+        data = {}
+        for _, p, o in self.graph.triples((URIRef(uri), None, None)):
+            local_name = p.split('#')[-1] if '#' in p else p.split('/')[-1]
+            if local_name == "hasDescription":
+                data["Description"] = str(o)
+            elif local_name == "hasInterpretation":
+                data["Interpretation"] = str(o)
+        return data
