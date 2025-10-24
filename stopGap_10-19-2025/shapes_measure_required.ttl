@@ -1,0 +1,24 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix meas: <http://example.org/ontology/teamMeasurement#> .
+
+meas:MeasureShape
+    a sh:NodeShape ;
+    sh:targetClass meas:Measure ;
+    sh:property [
+        sh:path meas:measuresConstruct ;
+        sh:minCount 1 ;
+        sh:message "Each Measure should link to at least one Construct." ;
+    ] ;
+    sh:property [
+        sh:path meas:includesModality ;
+        sh:minCount 1 ;
+        sh:message "Each Measure should include at least one Modality." ;
+    ] ;
+    sh:property [
+        sh:path meas:usesAnalyticTechnique ;
+        sh:minCount 1 ;
+        sh:message "Each Measure should use at least one Analytic Technique." ;
+    ] .

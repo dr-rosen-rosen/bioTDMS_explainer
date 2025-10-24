@@ -1,0 +1,2332 @@
+@prefix evid: <http://example.org/ontology/evidence#> .
+@prefix inst: <http://example.org/ontology/instances#> .
+@prefix meas: <http://example.org/ontology/teamMeasurement#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+evid:aggregatesFindingsFrom a owl:ObjectProperty ;
+    rdfs:label "aggregates findings from" ;
+    rdfs:comment "individual studies included in a meta-analysis" ;
+    rdfs:domain evid:metaAnalysis ;
+    rdfs:range evid:primaryStudy .
+
+evid:hasDOI a owl:DatatypeProperty ;
+    rdfs:label "has DOI" ;
+    rdfs:comment "DOI number or link for publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasDependentVariable a owl:ObjectProperty ;
+    rdfs:label "has dependent variable" ;
+    rdfs:comment "Links an effect size to the measure used as the dependent variable in a given analysis." ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range meas:Measure .
+
+evid:hasEffectLevel a owl:DatatypeProperty ;
+    rdfs:label "has effect level" ;
+    rdfs:comment "level of analysis of the effect (e.g., indiviudal, team, cross-level); pertains to measure level, but also the analysis approach" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:hasEffectSizeValue a owl:DatatypeProperty ;
+    rdfs:label "has effect size value" ;
+    rdfs:comment "effect size value" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasFirstAuthor a owl:DatatypeProperty ;
+    rdfs:label "has first author" ;
+    rdfs:comment "first author of publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasIndependentVariable a owl:ObjectProperty ;
+    rdfs:label "has independent variable" ;
+    rdfs:comment "Links an effect size to the measure or manipulation used as the independent variable in a given analysis." ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( meas:Measure meas:Manipulation ) ] .
+
+evid:hasIndividualSampleSize a owl:DatatypeProperty ;
+    rdfs:label "individual sample size" ;
+    rdfs:comment "number of individuals in the study" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasLowerCI a owl:DatatypeProperty ;
+    rdfs:label "has lower CI" ;
+    rdfs:comment "lower confidence interval for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasNotes a owl:DatatypeProperty ;
+    rdfs:label "notes" ;
+    rdfs:comment "otherwise uncategorized but potentially important information about the effect" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:hasPValue a owl:DatatypeProperty ;
+    rdfs:label "has p value" ;
+    rdfs:comment "p value for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasPubYear a owl:DatatypeProperty ;
+    rdfs:label "has publication year" ;
+    rdfs:comment "year of publication" ;
+    rdfs:domain evid:Publication ;
+    rdfs:range xsd:string .
+
+evid:hasSE a owl:DatatypeProperty ;
+    rdfs:label "has SE value" ;
+    rdfs:comment "standard error value for effect size estimate" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasSourceConstruct a owl:ObjectProperty ;
+    rdfs:label "has source construct" ;
+    rdfs:comment "Specifies the source construct for a meta-analytic effect" ;
+    rdfs:domain evid:ClassLevelRelationship ;
+    rdfs:range meas:Construct .
+
+evid:hasStudyPopulation a owl:DatatypeProperty ;
+    rdfs:label "has study population" ;
+    rdfs:comment "description of population in the study" ;
+    rdfs:domain evid:Study ;
+    rdfs:range xsd:string .
+
+evid:hasTargetConstruct a owl:ObjectProperty ;
+    rdfs:label "has target construct" ;
+    rdfs:comment "Specifies the target construct for a meta-analytic effect" ;
+    rdfs:domain evid:ClassLevelRelationship ;
+    rdfs:range meas:Construct .
+
+evid:hasTeamSampleSize a owl:DatatypeProperty ;
+    rdfs:label "team sample size" ;
+    rdfs:comment "number of teams in the study" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:hasUpperCI a owl:DatatypeProperty ;
+    rdfs:label "has upper CI" ;
+    rdfs:comment "upper confidence interval for effect size" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+evid:perturbationPhase a owl:DatatypeProperty ;
+    rdfs:label "has perturbation phase" ;
+    rdfs:comment "whehter the effect is for data captured during perturbation, normal, or the entire performance episode" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:reportsEffectSize a owl:ObjectProperty ;
+    rdfs:label "reports effect size" ;
+    rdfs:comment "links effect sizes to the studies that report them" ;
+    rdfs:domain evid:Study ;
+    rdfs:range evid:EffectSize .
+
+evid:reportsStudy a owl:ObjectProperty ;
+    rdfs:label "reports study" ;
+    rdfs:comment "Publication reporting details of an included study." ;
+    rdfs:domain evid:Publication ;
+    rdfs:range evid:Study .
+
+evid:summarizesEffectBetween a owl:ObjectProperty ;
+    rdfs:domain evid:metaAnalysis ;
+    rdfs:range evid:ClassLevelRelationship .
+
+evid:usesEffectSizeMetric a owl:DatatypeProperty ;
+    rdfs:label "type of effect size metric" ;
+    rdfs:comment "effect size type used" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:string .
+
+evid:usesKStudies a owl:DatatypeProperty ;
+    rdfs:label "uses k studies" ;
+    rdfs:comment "number of studies included in a meta-analytic effect" ;
+    rdfs:domain evid:EffectSize ;
+    rdfs:range xsd:float .
+
+inst:measure_meas_001 a meas:Measure ;
+    rdfs:label "communication entropy" ;
+    meas:hasDescription "entropy of  symbolic speaker states representing binary (speaking / not speaking) states for each team member" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_002 a meas:Measure ;
+    rdfs:label "communication percent determinism (%DET)" ;
+    meas:hasDescription "discrete recurrence metric of communication pattern repitition" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_discrete_recurrence_analysis_det .
+
+inst:measure_meas_003 a meas:Measure ;
+    rdfs:label "patient status metric" ;
+    meas:hasDescription "an objective performance score computed from physiological recordings of the mannikins. tTotZ is the time that each patient was outside of a physiological goal state (e.g., goal blood pressure range) and measures the time taken for a team to stabilize the patient in response to training perturbations (e.g., loss of heart rhythm)." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_004 a meas:Measure ;
+    rdfs:label "time window" ;
+    meas:hasDescription "observer rated durtion of the event from scenario start to end" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_005 a meas:Measure ;
+    rdfs:label "CPS outcome" ;
+    meas:hasDescription "Collaborative problem solving outcome in physics game (no 'coin', silver or gold)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_006 a meas:Measure ;
+    rdfs:label "semantic alignment" ;
+    meas:hasDescription "how people converge on similar meanings without the use of strict lexical (symbolic) repetition" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_cosine_similarity .
+
+inst:measure_meas_007 a meas:Measure ;
+    rdfs:label "lexical alignment" ;
+    meas:hasDescription "reuse of the same words and phrases from the recent discourse" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_cosine_similarity .
+
+inst:measure_meas_008 a meas:Measure ;
+    rdfs:label "syntax alignment" ;
+    meas:hasDescription "reuse of recently heard syntactic structures of their conversational partners in their own speech" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_cosine_similarity .
+
+inst:measure_meas_009 a meas:Measure ;
+    rdfs:label "perceptions of collaboratoin" ;
+    meas:hasDescription "Students individually rated their satisfaction with their communication, cooperation, and agreeableness using 6-point scales. " ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_teamwork ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_010 a meas:Measure ;
+    rdfs:label "CPS AMI" ;
+    meas:hasDescription """CPS coding framework, which entails coding at the utterance-level
+To compute influence, at each turn of talk whether each
+speaker is speaking is noted and what CPS facets are indicated in their speech,
+if any. Influencewas then computed for each speaker as the AMI from a
+lag 1 binary time series of speaking at time t against the CPS time series
+at time t+ 1. The score is reported at the individual team member level. """ ;
+    meas:hasLevelOfAnalysis inst:level_cross_level ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_average_mutual_information_ami .
+
+inst:measure_meas_011 a meas:Measure ;
+    rdfs:label "CPS task score" ;
+    meas:hasDescription """Each team’s final solution was consensus
+scored by two independent raters on the five challenge criteria.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_012 a meas:Measure ;
+    rdfs:label "system effectiveness score" ;
+    meas:hasDescription "weighted composite of a number of system parameters, including time spent in alarm state, number of good photographs per minute, number of missed targets and resources consumed (e.g. fuel; film) and was computed after each mission. Teams began each mission with a score of 1,000, and points were deducted based on the final values of the parameters" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_013 a meas:Measure ;
+    rdfs:label "% max entropy communication" ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for communication flow data" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_014 a meas:Measure ;
+    rdfs:label "% max entropy controls" ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for system control state data" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_behavior_system_controls ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_015 a meas:Measure ;
+    rdfs:label "% max entropy vehicle" ;
+    meas:hasDescription "normalised entropy, calculated by dividing each score by the maximum value at that layer (%MaxEntropy) at each window update for vehicle state data" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_behavior_system_controls ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_016 a meas:Measure ;
+    rdfs:label "Time to Kill (TTK)" ;
+    meas:hasDescription """Time to Kill (TTK) measured the average time from initial
+engagement to enemy neutralization, providing a consistent
+index of combat speed.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_017 a meas:Measure ;
+    rdfs:label "Damage Received" ;
+    meas:hasDescription "Damage Received captured platoon health loss, offering insight into defensive coordination and situational awareness." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_018 a meas:Measure ;
+    rdfs:label "Trust" ;
+    meas:hasDescription "Trust and cooperation metrics were collected from each participant using validated Likert-style surveys administered after each mission phase. Individual responses were aggregated to produce team-level scores, enabling between-group comparisons of perceived cohesion across missions." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_019 a meas:Measure ;
+    rdfs:label "Cooperation" ;
+    meas:hasDescription "Trust and cooperation metrics were collected from each participant using validated Likert-style surveys administered after each mission phase. Individual responses were aggregated to produce team-level scores, enabling between-group comparisons of perceived cohesion across missions." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_020 a meas:Measure ;
+    rdfs:label "Speed Variability (CV)" ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_behavior_movement ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_dispersion_coefficient_of_variation .
+
+inst:measure_meas_021 a meas:Measure ;
+    rdfs:label "Pairwise Movement Correlation (Distance)" ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Pairwise correlations (PC) were also computed between individual movements and the team mean to assess formation synchronicity at both the section and platoon levels." ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_behavior_movement ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_022 a meas:Measure ;
+    rdfs:label "Distance from Platoon (CV)" ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_behavior_movement ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_dispersion_coefficient_of_variation .
+
+inst:measure_meas_023 a meas:Measure ;
+    rdfs:label "Distance from Section (CV)" ;
+    meas:hasDescription "Tank platoon geospatial coordination was assessed using simulation-derived time-series data, including speed (S’), distance (D’), area, center point, etc. (see Figure 2). Team-level variability was captured using the coefficient of variation (CV) for speed and distance, enabling real-time assessment of spatiotemporal dispersion." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_behavior_movement ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_dispersion_coefficient_of_variation .
+
+inst:measure_meas_024 a meas:Measure ;
+    rdfs:label "RR" ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. RR measured the proportion of repeated communication sequences, with higher values indicating stable patterns." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sequence_counts .
+
+inst:measure_meas_025 a meas:Measure ;
+    rdfs:label "Determinism (DET)" ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. DET captured the predictability of sequences, reflecting structured communication." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sequence_counts .
+
+inst:measure_meas_026 a meas:Measure ;
+    rdfs:label "INT" ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. Intensity represented the proportion of time team members were actively engaged in communication." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_proportion .
+
+inst:measure_meas_027 a meas:Measure ;
+    rdfs:label "CENT" ;
+    meas:hasDescription "Communication dynamics were assessed through RQA and SNA. Centralization assessed the concentration of communication, indicating whether interaction was distributed or dominated by a few." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_network_analysis .
+
+inst:measure_meas_028 a meas:Measure ;
+    rdfs:label "Determinism (DET)" ;
+    meas:hasDescription "Measures the stability of physiological coupling between dyads. High determinism suggests stable synchronization in cognitive workload" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_workload ;
+    meas:usesAnalyticTechnique inst:tech_dsa_discrete_recurrence_analysis_det .
+
+inst:measure_meas_029 a meas:Measure ;
+    rdfs:label "Cardiac IBI coupling (CC)" ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (Cross-correlation)""" ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_workload ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_meas_030 a meas:Measure ;
+    rdfs:label "Cardiac IBI coupling (%REC)" ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (%REC—the relative number of matching data point sequences between two time series compared with the total matches possible)""" ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_workload ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_meas_031 a meas:Measure ;
+    rdfs:label "Cardiac IBI coupling (CFEn)" ;
+    meas:hasDescription """Two disposable electrodes were placed on the sternum (at the maxilla and xiphoid process) of each participant to record ECG at 480 Hz using two wireless radio transmitters (Cleveland Medical Devices Inc., BioRadio, model BR150 –900)
+interfaced with custom software that was developed by the Air Force Research Laboratory (AFRL) to identify and record IBIs (defined as the time, in milliseconds, between successive R-peaks in a continuous stream of recorded ECG). (CFEn = cross-fuzzy entropy)""" ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_workload ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_meas_032 a meas:Measure ;
+    rdfs:label "PS coupling (%REC)" ;
+    meas:hasDescription """Anterior–posterior (AP) head position was recorded using an optical tracking system (Seeing Machines Inc., faceLAB eye trackers) sampled at 60 Hz. PS path lengths and
+standard deviations (both common univariate PS measures) for individuals and dyadic teams are presented in the Appendix.""" ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_meas_033 a meas:Measure ;
+    rdfs:label "PS coupling (CFEn)" ;
+    meas:hasDescription """Anterior–posterior (AP) head position was recorded using an optical tracking system (Seeing Machines Inc., faceLAB eye trackers) sampled at 60 Hz. PS path lengths and
+standard deviations (both common univariate PS measures) for individuals and dyadic teams are presented in the Appendix.""" ;
+    meas:hasLevelOfAnalysis inst:level_individual_team ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_meas_034 a meas:Measure ;
+    rdfs:label "Group Cohesion" ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of group cohesion (Rozell &Gunderson, 2003). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_035 a meas:Measure ;
+    rdfs:label "Team Trust" ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of team trust (Naquin & Paulson, 2003). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_036 a meas:Measure ;
+    rdfs:label "Team Communication" ;
+    meas:hasDescription """Team attributes were assessed using post-experiment surveys of effectiveness of team communication (Lyons, Funke, et al., 2011). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of
+agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree).""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_037 a meas:Measure ;
+    rdfs:label "Collective Efficacy" ;
+    meas:hasDescription "Team attributes were assessed using post-experiment surveys of collective efficacy (Riggs & Knight, 1994). Only participants assigned to the dyadic team condition completed these questionnaires. Verbiage for each questionnaire was altered slightly to better describe the dyadic relationship present in the experiment. For each item, participants were asked to rate their degree of agreement with the statement on a 7-point scale from 1 (strongly disagree) to 7 (strongly agree)." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_038 a meas:Measure ;
+    rdfs:label "Team Performance" ;
+    meas:hasDescription "Points gained during the scenario. Team points for the high-scoring teams  ranged from 985 to 2585 (M = 2025); for the low-scoring teams from 365 points to 1770 (M = 1098.75)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_count .
+
+inst:measure_meas_039 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """Team members’ contri-
+butions were segmented into conversational moves cor-
+responding to Hirokawa’s (19) definition of a functional
+utterance. That is, a unit was an uninterrupted utter-
+ance by a team member that had a discrete problem-
+solving function. As such, a unit could correspond to a
+grammatical sentence, to an independent clause, or to
+several sentences. For each unit we noted its grammat-
+ical form (declarative, interrogative, imperative, or el-
+lipsis) and speaker. The task-related (i.e., problem-solv-
+ing) function of a unit was classified using the coding
+scheme developed by Orasanu and Fischer (35). Main
+and sub-categories plus examples are provided in Ta-
+ble I.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_language_analysis_human_coding .
+
+inst:measure_meas_040 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """Our analyses focused on the
+control structure and interactive patterns in teams, as
+well as on team members’ identification with and affec-
+tive responses to the group. Several LIWC categories
+were exploited for our purposes. The word count cate-
+gory was applied to assess how much each team mem-
+ber talked and whether an individual or individuals
+talked more than others, thus dominating the team’s
+discourse. In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) and how often positive or negative emotion
+words occurred in their communications. The former
+categories were expected to tap team members’ identi-
+fication with the group; the latter to gauge the social
+climate in a team. These LIWC categories were complemented by hand-
+coding team members’ communications for expressions
+of specific interpersonal affect. Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).
+We coded whether or not speakers verbalized affective reactions to teammates, and when they did we further
+noted whether they expressed praise and empathy,
+showed humor or politeness, or tried to appease, or
+were apologetic, patronizing, criticizing, or defensive
+(see Table II for a listing of the categories and exam-
+ples).""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_interpersonal_team_process ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_language_analysis_human_coding .
+
+inst:measure_meas_041 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """Our analyses focused on the
+control structure and interactive patterns in teams, as
+well as on team members’ identification with and affec-
+tive responses to the group. Several LIWC categories
+were exploited for our purposes. The word count cate-
+gory was applied to assess how much each team mem-
+ber talked and whether an individual or individuals
+talked more than others, thus dominating the team’s
+discourse. In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) and how often positive or negative emotion
+words occurred in their communications. The former
+categories were expected to tap team members’ identi-
+fication with the group; the latter to gauge the social
+climate in a team. These LIWC categories were complemented by hand-
+coding team members’ communications for expressions
+of specific interpersonal affect. Our affect codes were
+modeled after coding schemes psychologists have used
+to classify speaker affect in marital interaction (14,28).
+We coded whether or not speakers verbalized affective reactions to teammates, and when they did we further
+noted whether they expressed praise and empathy,
+showed humor or politeness, or tried to appease, or
+were apologetic, patronizing, criticizing, or defensive
+(see Table II for a listing of the categories and exam-
+ples).""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_interpersonal_team_process ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_language_analysis_human_coding .
+
+inst:measure_meas_042 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription "For each scenario we computed the standard deviation of team members’ word count as a measure of variability in team members’ amount of talk and thus as an indication of their differential influence on their team’s interaction. We then correlated this measurement with the team’s corresponding performance score (i.e., point total) to determine whether team success was related to a particular control structure. " ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_dispersion .
+
+inst:measure_meas_043 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """Analyses of the communication flow between team
+members in successful and unsuccessful teams lend
+further support to this interpretation. For each team
+member, we noted how often the other three team
+members responded to his contributions during a sce-
+nario, and summarized the resulting pattern in a flow
+diagram. We focused on team members’ responses
+rather than on their initiations to characterize their in-
+teractive behavior because team members tended to
+broadcast their communications for everybody to hear,
+frequently without identifying a specific addressee. The
+communication flow typical of unsuccessful teams is
+represented in the right portion of Fig. 2. """ ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sequence_counts .
+
+inst:measure_meas_044 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """In addition, we used the LIWC to count how
+often team members referred to themselves (frequency
+of first-person singular pronouns, e.g., “I”) or to the
+team (frequency of first-person plural pronouns, e.g.,
+“we”) """ ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_pronoun_use .
+
+inst:measure_meas_045 a meas:Measure ;
+    rdfs:label "LIWC" ;
+    meas:hasDescription """Interactive patterns also reflect how well team mem-
+bers collaborate with one another and get along (42,43).
+On a relational level, collaboration concerns the extent
+to which team members are responsive to one another,
+take up and extend each other’s contributions, and
+build consensus. Moreover, the frequency of team
+members’ agreement relative to their disagreement car-
+ries affective meaning insofar as agreements are consid-
+ered to be positive conversational moves while dis-
+agreements are judged to be negative. Consequently, a
+preponderance of agreement is believed to indicate a
+positive team climate, which, in turn, is assumed nec-
+essary for team success (1).""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_percentage .
+
+inst:measure_meas_046 a meas:Measure ;
+    rdfs:label "Project Design Performance" ;
+    meas:hasDescription """The team’s success at the end of
+the semester was evaluated by their instructor. Because of the dramatic differences between the requirements for the differ-
+ent projects, a scientific success metric was created. Each
+team had a set of project-specific design requirements they
+were asked to meet in the beginning of semester. The degree
+to which each requirement was met for each team resulted in
+their final success score. This metric went from 0 to 1, with 1
+requiring that the team exceeded every single requirement.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_count .
+
+inst:measure_meas_047 a meas:Measure ;
+    rdfs:label "Lexical Entrainment" ;
+    meas:hasDescription """Our group entrainment score is adapted from the pair score
+from [14]. This score was selected over the various other
+measures of lexical entrainment due to the way that it looks at
+word use over the entire dialogue rather than in specific turn
+pairs, eliminating any problems due to the corpus challenges
+previously mentioned.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_048 a meas:Measure ;
+    rdfs:label "Lexical Entrainment: Change" ;
+    meas:hasDescription """the entrainment scores were calcu-
+lated for the first and second half of each session, and the
+difference in scores (second half - first half) was used as a
+final measure of entrainment over the session, which we call
+Change. Others have similarly split dialogue into first and
+second half with success [24]. As noted before, we were able
+to use the entire corpus for this experiment, so the sessions an-
+alyzed increased from 53 to 71""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_049 a meas:Measure ;
+    rdfs:label "Team Performance" ;
+    meas:hasDescription """based on the
+number of trees ( 1 point) and houses
+( 50 points) destroyed by the fire. Points began at
+100% of the possible points in the scenario and
+were deducted based on the number of trees and
+houses burned during the scenario """ ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sum .
+
+inst:measure_meas_050 a meas:Measure ;
+    rdfs:label "Team Communication" ;
+    meas:hasDescription "Itensity, Speech Rate, Centralization, Complexity, and Interdependence " ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis .
+
+inst:measure_meas_051 a meas:Measure ;
+    rdfs:label "GCA: Participation" ;
+    meas:hasDescription "Mean participation of any participant above or below what you would expect from equal participation in a group of the size of theirs" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_052 a meas:Measure ;
+    rdfs:label "GCA:Overall Responsivity" ;
+    meas:hasDescription "Measure of how responsive a participant’s contributions are to all other group members’ recent contributions" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis_lsa .
+
+inst:measure_meas_053 a meas:Measure ;
+    rdfs:label "GCA: Internal Cohesion" ;
+    meas:hasDescription "How semantically similar a participant’s contributions are with the participant’s own recent contributions" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis_lsa .
+
+inst:measure_meas_054 a meas:Measure ;
+    rdfs:label "GCA: Social Impact" ;
+    meas:hasDescription "Measure of how contributions initiated by the corresponding participant have triggered follow-up responses" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis_lsa .
+
+inst:measure_meas_055 a meas:Measure ;
+    rdfs:label "GCA: Newness" ;
+    meas:hasDescription "The amount of new information a participant provides, on average" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis .
+
+inst:measure_meas_056 a meas:Measure ;
+    rdfs:label "GCA: communication density" ;
+    meas:hasDescription "The amount of semantically meaningful information" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis .
+
+inst:measure_meas_057 a meas:Measure ;
+    rdfs:label "GCA profile" ;
+    meas:hasDescription "Role label based on pattern of 6 GCA measures" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_058 a meas:Measure ;
+    rdfs:label "Individual performance" ;
+    meas:hasDescription "proportion individual  learning gains (pre-post test)" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_059 a meas:Measure ;
+    rdfs:label "Group performance" ;
+    meas:hasDescription "proportion of topic relevant discussion" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_topic_modeling .
+
+inst:measure_meas_060 a meas:Measure ;
+    rdfs:label "Group composition" ;
+    meas:hasDescription "Role diversity" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_061 a meas:Measure ;
+    rdfs:label "Group composition" ;
+    meas:hasDescription "Proportion of productive Roles:Drivers, Influential Actors, Socially Detached" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_proportion .
+
+inst:measure_meas_062 a meas:Measure ;
+    rdfs:label "Group Composition" ;
+    meas:hasDescription "Proportion unproductive Roles: Chatterers, Followers, Lurkers" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_proportion .
+
+inst:measure_meas_063 a meas:Measure ;
+    rdfs:label "K=Coordination order parameter" ;
+    meas:hasDescription "Timing of 3 communiccation events: Information, Negotiation, Feedback K= e3-e1/e3-e2" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_064 a meas:Measure ;
+    rdfs:label "K=Coordination order parameter" ;
+    meas:hasDescription "Timing of 3 communiccation events: Information, Negotiation, Feedback K= e3-e1/e3-e2" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_lyapunov_exponent .
+
+inst:measure_meas_065 a meas:Measure ;
+    rdfs:label "K=Coordination order parameter" ;
+    meas:hasDescription "Timing of 3 communiccation events: Information, Negotiation, Feedback K= e3-e1/e3-e2" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow_and_content ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_hurst_exponent .
+
+inst:measure_meas_066 a meas:Measure ;
+    rdfs:label "Roadblocks overcome" ;
+    meas:hasDescription "The number of roadblock/perturbations successfully overcome (1 per each of 8 missions (5 +3)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_count .
+
+inst:measure_meas_2000 a meas:Measure ;
+    rdfs:label "Determinism (DET)" ;
+    meas:hasDescription "Degree of predictability in a discrete recurrence analysis" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_discrete_recurrence_analysis_det .
+
+inst:measure_meas_2001 a meas:Measure ;
+    rdfs:label "Maximum pattern Information" ;
+    meas:hasDescription "Amount of information present in a information theoretic sense" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_2002 a meas:Measure ;
+    rdfs:label "Team Performance" ;
+    meas:hasDescription "Average of 4 Likert scale questions posed to supervisors" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_mean .
+
+inst:measure_meas_2003 a meas:Measure ;
+    rdfs:label "Positivity" ;
+    meas:hasDescription "Utterance constructive in intention or attitude, showing optimism and confidence" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_human_coding .
+
+inst:measure_meas_2004 a meas:Measure ;
+    rdfs:label "Problem Oriented" ;
+    meas:hasDescription "Utterance focused on problem" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_human_coding .
+
+inst:measure_meas_2005 a meas:Measure ;
+    rdfs:label "Solution Oriented" ;
+    meas:hasDescription "Utterance focused on solution" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_human_coding .
+
+inst:measure_meas_2006 a meas:Measure ;
+    rdfs:label "Speaker Switch" ;
+    meas:hasDescription "Utterance involving new speaker" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_human_coding .
+
+inst:measure_meas_2007 a meas:Measure ;
+    rdfs:label "LIWC: ppron" ;
+    meas:hasDescription "use of personal pronouns" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_22 .
+
+inst:measure_meas_2008 a meas:Measure ;
+    rdfs:label "LIWC: cog-proc" ;
+    meas:hasDescription "use of cognitive process language" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_22 .
+
+inst:measure_meas_2009 a meas:Measure ;
+    rdfs:label "microbehaviors" ;
+    meas:hasDescription "per turn existence of positive or negative microbehaviors" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_human_coding .
+
+inst:measure_meas_2010 a meas:Measure ;
+    rdfs:label "first person pronouns" ;
+    meas:hasDescription "more 1st person pronouns: singular or plural" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2011 a meas:Measure ;
+    rdfs:label "passive voice" ;
+    meas:hasDescription "use of passive voice per turn" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2012 a meas:Measure ;
+    rdfs:label "LIWC affect" ;
+    meas:hasDescription "affect as measured by LIWC" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2013 a meas:Measure ;
+    rdfs:label "linguistic similarity" ;
+    meas:hasDescription "turn by turn linguistic similarity in terms of sentiment" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2014 a meas:Measure ;
+    rdfs:label "achievement language" ;
+    meas:hasDescription "achievement language" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2015 a meas:Measure ;
+    rdfs:label "risk language" ;
+    meas:hasDescription "language describing risk" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_mixed_open_and_closed_liwc,
+        inst:tech_semantic_similarity,
+        inst:tech_sentence_bert,
+        inst:tech_stressnet_dictionaries .
+
+inst:measure_meas_2016 a meas:Measure ;
+    rdfs:label "acoustic markers" ;
+    meas:hasDescription "energy, FO, ZCR" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_paralinguistic ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_acoustic_feature_extraction .
+
+inst:measure_meas_2017 a meas:Measure ;
+    rdfs:label "Signature RF and deep learning models" ;
+    meas:hasDescription "LIWC features used to make models to classify microbehaviors" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc .
+
+inst:measure_meas_2018 a meas:Measure ;
+    rdfs:label "Dyad entropy" ;
+    meas:hasDescription "neurodynamic information sharing acoss performance episode" ;
+    meas:hasLevelOfAnalysis inst:level_dyads ;
+    meas:includesModality inst:modality_physiology_eeg ;
+    meas:measuresConstruct inst:construct_teamwork ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_2019 a meas:Measure ;
+    rdfs:label "Individual entropy" ;
+    meas:hasDescription "neurodynamic organization across individual performance episode" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_physiology_eeg ;
+    meas:measuresConstruct inst:construct_teamwork ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_2020 a meas:Measure ;
+    rdfs:label "Decision Making Performance" ;
+    meas:hasDescription "Straus and McGrath (1994) scoring system" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_2021 a meas:Measure ;
+    rdfs:label "Lingustic Style Matching" ;
+    meas:hasDescription "extent to which individuals mimic each other’s communication at the linguistic level" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc_function_words .
+
+inst:measure_meas_2022 a meas:Measure ;
+    rdfs:label "Communication behavior" ;
+    meas:hasDescription "Degree to which participants think individuals had positive or negative comms" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4001 a meas:Measure ;
+    rdfs:label "neural synchrony (phi coefficient)" ;
+    meas:hasDescription "Neural signal alignment between dyad partners across tasks." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_physiology_eeg ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_meas_4002 a meas:Measure ;
+    rdfs:label "coordination score" ;
+    meas:hasDescription "Observer rating of dyad behavioral coordination during task phases." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_median_split .
+
+inst:measure_meas_4003 a meas:Measure ;
+    rdfs:label "communication percent determinism (%DET)" ;
+    meas:hasDescription "Pattern regularity in speaker turn-taking during simulations.",
+        "Percent determinism in turn-taking communication indicating structural regularity. High %DET = stable, repetitive communication patterns. Drop in %DET = signal of communication reorganization. %DET variability is a key indicator of communication flexibility and cognitive adaptability. ",
+        "Proportion of recurrent communication patterns in team interactions." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_discrete_recurrence_analysis,
+        inst:tech_dsa_discrete_recurrence_analysis_det .
+
+inst:measure_meas_4004 a meas:Measure ;
+    rdfs:label "RMSE from nonlinear prediction" ;
+    meas:hasDescription "Magnitude of deviation in communication trajectory from predicted pattern." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_nonlinear_prediction_error_rmse .
+
+inst:measure_meas_4005 a meas:Measure ;
+    rdfs:label "Average Mutual Information (AMI)" ;
+    meas:hasDescription "Mutual dependence between individual speech patterns and others. An AMI value closer to 0.5 suggests substantial influence and mutual predictability in communication turn-taking. Values closer to 0.15 indicate limited influence or less engagement in driving reorganization." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_average_mutual_information_ami .
+
+inst:measure_meas_4006 a meas:Measure ;
+    rdfs:label "patient status metric" ;
+    meas:hasDescription "Performance score based on simulated patient outcome." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4007 a meas:Measure ;
+    rdfs:label "Team Performance" ;
+    meas:hasDescription "Outcome performance score in simulated enroute care training." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4008 a meas:Measure ;
+    rdfs:label "communication transitions" ;
+    meas:hasDescription "Shifts between speaker roles and communication types during discussion." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_observation_behavior_coding_using_cat .
+
+inst:measure_meas_4010 a meas:Measure ;
+    rdfs:label "CPS outcome" ;
+    meas:hasDescription "Performance score for solving collaborative programming tasks." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4011 a meas:Measure ;
+    rdfs:label "communicative influence" ;
+    meas:hasDescription "Composite metric of verbal initiative and team response during programming task.",
+        "Team member’s influence on collaborative decisions in science tasks." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_average_mutual_information_ami,
+        inst:tech_network_analysis .
+
+inst:measure_meas_4012 a meas:Measure ;
+    rdfs:label "task success" ;
+    meas:hasDescription "Team outcome in middle school collaborative science activities." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_other .
+
+inst:measure_meas_4013 a meas:Measure ;
+    rdfs:label "perceived usefulness" ;
+    meas:hasDescription "Teacher-reported usefulness of communicative influence dashboard." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4014 a meas:Measure ;
+    rdfs:label "perceived ease of use" ;
+    meas:hasDescription "Coded rating of how easily the dashboard's indicators can be interpreted by teachers." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_interview_coding ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4015 a meas:Measure ;
+    rdfs:label "actionability subscale" ;
+    meas:hasDescription "Coded rating of how actionable the dashboard is for instructional decisions." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_interview_coding ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4018 a meas:Measure ;
+    rdfs:label "Relational Event Model (REM)" ;
+    meas:hasDescription "A statistical framework modeling communication as sequences of relational events (“who talks to whom, when”), predicting future patterns from past interactions" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_network_analysis_relational_event_modelling .
+
+inst:measure_meas_4021 a meas:Measure ;
+    rdfs:label "Features of speaker linguistic style" ;
+    meas:hasDescription "a computational application for text analysis that includes a dictionary mapping a list of words to 64 psychological and linguistic categories" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc2007 .
+
+inst:measure_meas_4022 a meas:Measure ;
+    rdfs:label "crew size" ;
+    meas:hasDescription "Crew size category for cockpit team (2-person vs. 3-person) in full-mission flight simulations.",
+        "the phenomenon that speakers_x000D_tend to speak similarly in conversations" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content,
+        inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_team_affect,
+        inst:construct_team_composition ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor,
+        inst:tech_time_series_analysis .
+
+inst:measure_meas_4023 a meas:Measure ;
+    rdfs:label "NLPE (RMSE)" ;
+    meas:hasDescription "Nonlinear prediction error of communication signal as root mean square deviation.",
+        "team size, gender diversity (Blau’s index and female percentage),_x000D_ethnic diversity, and age diversity" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow,
+        inst:modality_survey ;
+    meas:measuresConstruct inst:construct_communication,
+        inst:construct_team_composition ;
+    meas:usesAnalyticTechnique inst:tech_dsa_nonlinear_prediction_error_rmse,
+        inst:tech_simple_aggregation .
+
+inst:measure_meas_4024 a meas:Measure ;
+    rdfs:label "total AMI" ;
+    meas:hasDescription "Aggregated average mutual information across individuals in the team. AMI is calculated between turn-taking time series of different team members, using a sliding window of 120 seconds (1 Hz sampling rate). The total AMI for each team member is the sum of mutual information with all other members, and it tracks how much their communication behavior predicts others'. It's used to identify which team members were driving significant communication reorganizations (i.e., changes in communication structure due to events or challenges). ",
+        "team processes, task conflict, process conflict, and relationship conflict" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow,
+        inst:modality_survey ;
+    meas:measuresConstruct inst:construct_communication,
+        inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_dsa_average_mutual_information_ami,
+        inst:tech_simple_aggregation .
+
+inst:measure_meas_4025 a meas:Measure ;
+    rdfs:label "speech activity measures" ;
+    meas:hasDescription "Quantitative features of speech (e.g., duration, frequency) during task execution." ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_meas_4027 a meas:Measure ;
+    rdfs:label "team type (coded)" ;
+    meas:hasDescription "Team category: neurosurgical vs. medical student teams." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_team_composition ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_meas_4028 a meas:Measure ;
+    rdfs:label "crew experience (coded)" ;
+    meas:hasDescription "Crew experience level coded for submarine simulations (experienced vs. novice)." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_other_archival ;
+    meas:measuresConstruct inst:construct_team_composition ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_meas_4029 a meas:Measure ;
+    rdfs:label "communication entropy" ;
+    meas:hasDescription "Entropy of team communication sequences indicating unpredictability." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_3001 a meas:Measure ;
+    rdfs:label "Lexical Interpersonal Synergies" ;
+    meas:hasDescription "Cross-recurrence quantification analysis applied to lexical time series data to measure structural organization of recurring word choice patterns between interlocutors. Uses L (average diagonal line length) and ENTR (entropy) to capture the extent and complexity of coordinated lexical choices across speakers during joint decision-making conversations." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_measure_3002 a meas:Measure ;
+    rdfs:label "Lexical Interactive Alignment" ;
+    meas:hasDescription "Individual recurrence quantification analysis applied to lexical time series data to measure within-speaker consistency in word choice patterns. Uses L and ENTR to capture individual structural organization of lexical choices during conversational interactions." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3003 a meas:Measure ;
+    rdfs:label "Collective Benefit Metric" ;
+    meas:hasDescription "The collective benefit metric quantifies collaborative advantage in a visual discrimination task. It is calculated as the ratio of the dyad's sensitivity (psychometric slope) to the sensitivity of the more capable individual team member. Values above 1 indicate successful cooperation where the dyad outperforms its best individual member, while values below 1 indicate counterproductive collaboration where teamwork hinders performance compared to individual capability. This ratio-based measure directly captures whether working together provides a performance advantage beyond individual potential." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_other .
+
+inst:measure_measure_3004 a meas:Measure ;
+    rdfs:label "Lexical Self-Consistency" ;
+    meas:hasDescription "Combined recurrence quantification analysis applied to lexical time series data treating the dyad as one time series to assess global structural organization of word choice patterns. Uses L and ENTR to capture overall lexical consistency across the entire conversational interaction." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3005 a meas:Measure ;
+    rdfs:label "Prosody Interpersonal Synergies" ;
+    meas:hasDescription "Cross-recurrence quantification analysis applied to fundamental frequency (pitch) time series data to measure structural organization of recurring prosodic patterns between interlocutors. Uses L and ENTR to capture the extent and complexity of coordinated prosodic features across speakers during joint decision-making conversations." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_paralinguistic ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_measure_3006 a meas:Measure ;
+    rdfs:label "Prosody Interactive Alignment" ;
+    meas:hasDescription "Recurrence quantification analysis applied to individual speaker fundamental frequency (pitch) time series data to measure within-speaker consistency in prosodic patterns. Uses L and ENTR to capture individual structural organization of prosodic features during conversational interactions." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_paralinguistic ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3007 a meas:Measure ;
+    rdfs:label "Prosody Self-Consistency" ;
+    meas:hasDescription "Recurrence quantification analysis applied to fundamental frequency (pitch) time series data treating the dyad as one combined time series to assess global structural organization of prosodic patterns. Uses L and ENTR to capture overall prosodic consistency across the entire conversational interaction." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_paralinguistic ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3008 a meas:Measure ;
+    rdfs:label "Speech/Pause Interpersonal Synergies" ;
+    meas:hasDescription "Cross-recurrence quantification analysis applied to speech activity and pause timing data to measure structural organization of recurring speech/pause patterns between interlocutors. Uses L and ENTR to capture the extent and complexity of coordinated speech timing across speakers during joint decision-making conversations." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_cross_recurrence_quantification_analysis_crqa .
+
+inst:measure_measure_3009 a meas:Measure ;
+    rdfs:label "Speech/Pause Interactive Alignment" ;
+    meas:hasDescription "Recurrence quantification analysis applied to individual speaker speech activity and pause timing data to measure within-speaker consistency in speech/pause patterns. Uses L and ENTR to capture individual structural organization of speech timing during conversational interactions." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3010 a meas:Measure ;
+    rdfs:label "Speech/Pause Self-Consistency" ;
+    meas:hasDescription "Recurrence quantification analysis applied to speech activity and pause timing data treating the dyad as one combined time series to assess global structural organization of speech/pause patterns. Uses L and ENTR to capture overall speech timing consistency across the entire conversational interaction." ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_recurrence_quantification_analysis_rqa .
+
+inst:measure_measure_3011 a meas:Measure ;
+    rdfs:label "Team Experience" ;
+    meas:hasDescription "Teams were classified based on prior experience with the submarine piloting simulation task" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_composition ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_3012 a meas:Measure ;
+    rdfs:label "Semantic Similarity" ;
+    meas:hasDescription """LSA cosine between all possible pairs of transcripts as a function of training segment and experience. Two metrics derived from the LSA model of communication content are (a) the vector length of a piece of discourse and (b) the cosine between two pieces of discourse. We use these metrics to analyze (a) the semantic content contained in an utterance and (b) the semantic similarity between different pieces of discourse. The vector length of an utterance measures the amount of speech weighted by the domain-specific content the discourse contains. It is calculated as the Euclidean norm of a vector of words (e.g., an utterance) plotted in the semantic space. The cosine between any two pieces of discourse (e.g., any two utterances, any two training segments, any two transcripts) is the vector dot product between two word vectors containing the discourse plotted in the semantic space. Cosine measures the degree of semantic similarity, or correlation, between any two pieces of discourse.
+
+communication content analysis provides a gauge on the interactive expression of domain-relevant knowledge as team members interact (Cooke & Gorman, 2009). We analyzed communication content using LSA (Landauer, Foltz, & Laham, 1998). LSA is a mathematical/statistical method for representing and analyzing semantic knowledge in a particular work domain and is based on the theory that knowledge is reflected in how words group into contexts within meaningful discourse""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis_lsa .
+
+inst:measure_measure_3013 a meas:Measure ;
+    rdfs:label "Neurodynamic Entropy" ;
+    meas:hasDescription """The team neurophysiology measure (neurodynamic entropy) is derived from the EEG-based neurophysiological symbol (NS) method (Stevens, Galloway, et al.,2012; Stevens, Gorman, et al., 2012). Neurodynamic
+entropy is a continuously varying index of how much the team neurophysiological distribution is changing. Low entropy means that the team neurophysiological distribution is changing less, and high entropy means that it is changing more; low entropy can be interpreted as a relatively fixed team mental state, and high entropy can be interpreted as a more flexible team mental state.""" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_physiology_eeg ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_entropy .
+
+inst:measure_measure_5001 a meas:Measure ;
+    rdfs:label "Communication entropy" ;
+    meas:hasDescription "Shannon entropy of team communication patterns during the simulated space mission" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_5002 a meas:Measure ;
+    rdfs:label "Average mutual information" ;
+    meas:hasDescription "Average mutual information among communication channels assessing coupling" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_average_mutual_information_ami .
+
+inst:measure_measure_5003 a meas:Measure ;
+    rdfs:label "Communication intersections" ;
+    meas:hasDescription "Measure capturing intersections in communication patterns across team roles" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_network_analysis_graph_intersection .
+
+inst:measure_measure_5004 a meas:Measure ;
+    rdfs:label "Relaxation time metrics" ;
+    meas:hasDescription "Time components (Initial, Peak, End) to reach extreme reorganization values calculated from entropy and RMSE" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_flow ;
+    meas:measuresConstruct inst:construct_resilience ;
+    meas:usesAnalyticTechnique inst:tech_dsa_relaxation_time .
+
+inst:measure_measure_5005 a meas:Measure ;
+    rdfs:label "Team performance (Quadra score)" ;
+    meas:hasDescription "Composite score earned by dyad during cooperative Tetris-like game" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5006 a meas:Measure ;
+    rdfs:label "IBI cross-sample entropy" ;
+    meas:hasDescription "Cross-sample entropy of interbeat interval time series between teammates indicating physiological synchrony" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_physiology_cardiac_ibi ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_5007 a meas:Measure ;
+    rdfs:label "Postural sway cross-sample entropy" ;
+    meas:hasDescription "Cross-sample entropy of postural sway signals (center of pressure trajectories) between teammates" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_physiology_postural_sway ;
+    meas:measuresConstruct inst:construct_coordination ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_5008 a meas:Measure ;
+    rdfs:label "Number of words spoken" ;
+    meas:hasDescription "Total number of words spoken by dyad members during gameplay" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sum_word_count .
+
+inst:measure_measure_5009 a meas:Measure ;
+    rdfs:label "Team cohesion questionnaire" ;
+    meas:hasDescription "Self-report scale measuring perceived team cohesion after gameplay" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5010 a meas:Measure ;
+    rdfs:label "Number of sentences" ;
+    meas:hasDescription "Total number of sentences in team communication transcripts" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_sum_sentence_count_coh_metrix .
+
+inst:measure_measure_5011 a meas:Measure ;
+    rdfs:label "Adverbs count" ;
+    meas:hasDescription "Number of adverbs used in discourse" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabularly_pos_tagging_coh_metrix .
+
+inst:measure_measure_5012 a meas:Measure ;
+    rdfs:label "Lexical diversity" ;
+    meas:hasDescription "Type–token ratio (unique words divided by total words) as a measure of lexical diversity" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_lexical_diversity_calculation .
+
+inst:measure_measure_5013 a meas:Measure ;
+    rdfs:label "Deep cohesion" ;
+    meas:hasDescription "Index capturing the use of causal and logical connectives that create cohesion between ideas" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_cohesion_matrix .
+
+inst:measure_measure_5014 a meas:Measure ;
+    rdfs:label "Collaborative problem solving quality" ;
+    meas:hasDescription "Expert or algorithm-based rating of the quality of collaborative problem solving" ;
+    meas:hasLevelOfAnalysis inst:level_dyad ;
+    meas:includesModality inst:modality_observation ;
+    meas:measuresConstruct inst:construct_collaboration ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5015 a meas:Measure ;
+    rdfs:label "Learning gains" ;
+    meas:hasDescription "Difference between pre-test and post-test scores on knowledge assessments" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5016 a meas:Measure ;
+    rdfs:label "Prediction mean squared error" ;
+    meas:hasDescription "Mean squared error of machine learning models predicting group performance from lexical and acoustic features" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content_flow_and_paralinguistics ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_other .
+
+inst:measure_measure_5017 a meas:Measure ;
+    rdfs:label "Pronoun usage frequencies" ;
+    meas:hasDescription "Frequency of LIWC pronoun categories (first-person singular, first-person plural, etc.) in project communications" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc .
+
+inst:measure_measure_5018 a meas:Measure ;
+    rdfs:label "Cognitive process words" ;
+    meas:hasDescription "Frequency of cognitive process word categories (e.g., tentative, certainty, insight) from LIWC analysis" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc .
+
+inst:measure_measure_5019 a meas:Measure ;
+    rdfs:label "Words per sentence" ;
+    meas:hasDescription "Average number of words per sentence in transcribed speech segments" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_word_count .
+
+inst:measure_measure_5020 a meas:Measure ;
+    rdfs:label "Total words" ;
+    meas:hasDescription "Total number of words produced during a communication segment" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary .
+
+inst:measure_measure_5021 a meas:Measure ;
+    rdfs:label "Agreement/disagreement word counts" ;
+    meas:hasDescription "Counts of agreement and disagreement words (e.g., yes, no) from LIWC categories" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc .
+
+inst:measure_measure_5022 a meas:Measure ;
+    rdfs:label "Pronoun usage (plural vs singular)" ;
+    meas:hasDescription "Distribution of pronoun categories (first-person singular, first-person plural, third-person plural) across speech segments" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_liwc .
+
+inst:measure_measure_5023 a meas:Measure ;
+    rdfs:label "Target processing efficiency (TPE)" ;
+    meas:hasDescription "Performance metric measuring efficiency in processing target waypoints; higher scores indicate better efficiency" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5024 a meas:Measure ;
+    rdfs:label "Mission-level performance score" ;
+    meas:hasDescription "Composite mission-level performance score reflecting overall mission success" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5025 a meas:Measure ;
+    rdfs:label "Overcome score" ;
+    meas:hasDescription "Score representing team ability to overcome failures; derived from time to restore efficiency" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5026 a meas:Measure ;
+    rdfs:label "Ground truth resilience score (GTRS)" ;
+    meas:hasDescription "Difference between TPE on failure target and subsequent target, indicating robustness vs recovery" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_difference .
+
+inst:measure_measure_5027 a meas:Measure ;
+    rdfs:label "Entropy (reorganization)" ;
+    meas:hasDescription "Entropy metric quantifying system reorganization across RPAS layers" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_5028 a meas:Measure ;
+    rdfs:label "RMSE (novelty)" ;
+    meas:hasDescription "Root mean square error metric measuring novelty of reorganization relative to baseline" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_dsa_rmse_of_reorganization .
+
+inst:measure_measure_5029 a meas:Measure ;
+    rdfs:label "Relaxation time components" ;
+    meas:hasDescription "Time to reach initial, peak and end points after extreme reorganization values" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_resilience ;
+    meas:usesAnalyticTechnique inst:tech_time_series_analysis .
+
+inst:measure_measure_5030 a meas:Measure ;
+    rdfs:label "Target processing efficiency (TPE)" ;
+    meas:hasDescription "Performance metric measuring efficiency in processing target waypoints; higher scores indicate better efficiency" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5031 a meas:Measure ;
+    rdfs:label "Mission-level performance score" ;
+    meas:hasDescription "Composite mission-level performance score reflecting overall mission success" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_outcome ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5032 a meas:Measure ;
+    rdfs:label "Overcome score" ;
+    meas:hasDescription "Score representing team ability to overcome failures; derived from time to restore efficiency" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_performance ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5033 a meas:Measure ;
+    rdfs:label "Ground truth resilience score (GTRS)" ;
+    meas:hasDescription "Difference between TPE on failure target and subsequent target, indicating robustness vs recovery" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_performance ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_difference .
+
+inst:measure_measure_5034 a meas:Measure ;
+    rdfs:label "Entropy (reorganization)" ;
+    meas:hasDescription "Entropy metric quantifying system reorganization across RPAS layers" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_dsa_shannon_entropy .
+
+inst:measure_measure_5035 a meas:Measure ;
+    rdfs:label "RMSE (novelty)" ;
+    meas:hasDescription "Root mean square error metric measuring novelty of reorganization relative to baseline" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_adaptation ;
+    meas:usesAnalyticTechnique inst:tech_dsa_rmse_of_reorganization .
+
+inst:measure_measure_5036 a meas:Measure ;
+    rdfs:label "Relaxation time components" ;
+    meas:hasDescription "Time to reach initial, peak and end points after extreme reorganization values" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_system_interaction_logs ;
+    meas:measuresConstruct inst:construct_resilience ;
+    meas:usesAnalyticTechnique inst:tech_time_series_analysis .
+
+inst:measure_measure_5037 a meas:Measure ;
+    rdfs:label "Team performance score" ;
+    meas:hasDescription "Weighted composite score derived from number of missed targets, time to process targets, and time with unaddressed warnings" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_performance ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5038 a meas:Measure ;
+    rdfs:label "Response time to roadblocks" ;
+    meas:hasDescription "Time from initiation of a roadblock to action taken to overcome it" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_task_performance ;
+    meas:measuresConstruct inst:construct_task_outcome ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_difference .
+
+inst:measure_measure_5039 a meas:Measure ;
+    rdfs:label "Interpositional taskwork knowledge" ;
+    meas:hasDescription "Average team knowledge of other roles assessed using Pathfinder based on relatedness ratings of task concepts" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_shared_mental_model ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_open_vocabulary_pathfinder_algorithm .
+
+inst:measure_measure_5040 a meas:Measure ;
+    rdfs:label "Interpositional teamwork knowledge" ;
+    meas:hasDescription "Average team knowledge of teamwork procedures for other roles assessed via checklist questionnaire" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_shared_mental_model ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5041 a meas:Measure ;
+    rdfs:label "First-person plural usage" ;
+    meas:hasDescription "Frequency of first-person plural pronouns (we, us, our) in crew communications" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_dictionary_count_stressnet .
+
+inst:measure_measure_5042 a meas:Measure ;
+    rdfs:label "First-person singular usage" ;
+    meas:hasDescription "Frequency of first-person singular pronouns (I, me, my) in crew communications" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_dictionary_count_stressnet .
+
+inst:measure_measure_5043 a meas:Measure ;
+    rdfs:label "We-I ratio" ;
+    meas:hasDescription "Ratio of first-person plural to first-person singular pronoun usage" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation_ratio_calculation .
+
+inst:measure_measure_5044 a meas:Measure ;
+    rdfs:label "Support/aid terms" ;
+    meas:hasDescription "Frequency of support or aid-related words in communications" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_interpersonal_team_process ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_dictionary_count_stressnet .
+
+inst:measure_measure_5045 a meas:Measure ;
+    rdfs:label "Assent terms" ;
+    meas:hasDescription "Frequency of assent-related words (e.g., yes, okay) in communications" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_communication ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_dictionary_count_stressnet .
+
+inst:measure_measure_5046 a meas:Measure ;
+    rdfs:label "Team orientation scale" ;
+    meas:hasDescription "Self-report scale assessing team orientation using four items on a seven-point Likert scale" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_survey ;
+    meas:measuresConstruct inst:construct_team_affect ;
+    meas:usesAnalyticTechnique inst:tech_simple_aggregation .
+
+inst:measure_measure_5047 a meas:Measure ;
+    rdfs:label "Condition (resilient vs non-resilient)" ;
+    meas:hasDescription "Experimental manipulation comparing resilient versus non-resilient mission setup" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5048 a meas:Measure ;
+    rdfs:label "Failure status (routine vs automation vs autonomy)" ;
+    meas:hasDescription "Categorical status indicating failure presence/type during mission segments" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5049 a meas:Measure ;
+    rdfs:label "Failure type" ;
+    meas:hasDescription "Categorical failure type (autonomy, automation, hybrid, malicious attack, system power-down)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5050 a meas:Measure ;
+    rdfs:label "Failure complexity" ;
+    meas:hasDescription "Relative complexity of failure episodes (e.g., Failure One vs Failure Two)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5051 a meas:Measure ;
+    rdfs:label "Training condition" ;
+    meas:hasDescription "Between-team training (control vs coordination coaching vs trust calibration)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5052 a meas:Measure ;
+    rdfs:label "Model type and adaptation" ;
+    meas:hasDescription "Predictive model family and domain-adaptation setting used for MSE comparison" ;
+    meas:hasLevelOfAnalysis inst:level_group ;
+    meas:includesModality inst:modality_algorithmic_manipulation ;
+    meas:usesAnalyticTechnique inst:tech_other .
+
+inst:measure_measure_5053 a meas:Measure ;
+    rdfs:label "Project type" ;
+    meas:hasDescription "Project area/category in IBM Jazz archival analysis" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_context_descriptor ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5054 a meas:Measure ;
+    rdfs:label "Cognitive load condition" ;
+    meas:hasDescription "Annotated segment condition (high vs low cognitive load)" ;
+    meas:hasLevelOfAnalysis inst:level_individual ;
+    meas:includesModality inst:modality_experimental_manipulation ;
+    meas:measuresConstruct inst:construct_workload ;
+    meas:usesAnalyticTechnique inst:tech_between_groups_factor .
+
+inst:measure_measure_5055 a meas:Measure ;
+    rdfs:label "Lexical social impairment measures" ;
+    meas:hasDescription "Composite lexical indicators reflecting social impairment (STRESSnet)" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_communication_content ;
+    meas:measuresConstruct inst:construct_interpersonal_team_process ;
+    meas:usesAnalyticTechnique inst:tech_language_analysis_closed_vocabulary_dictionary_indices .
+
+inst:measure_measure_5056 a meas:Measure ;
+    rdfs:label "Mission day" ;
+    meas:hasDescription "Ordinal time index across mission days/sessions" ;
+    meas:hasLevelOfAnalysis inst:level_team ;
+    meas:includesModality inst:modality_temporal_factor ;
+    meas:usesAnalyticTechnique inst:tech_other .
+
+meas:CNS a owl:Class ;
+    rdfs:subClassOf meas:physiology .
+
+meas:CRQA a owl:Class ;
+    rdfs:subClassOf meas:informationTheoretic .
+
+meas:Lexical a owl:Class ;
+    rdfs:comment "Measured derived from an anlysis of the specific words used during communication (e.g., mirroring word choice)" ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:activityTracking a owl:Class ;
+    rdfs:comment "Measures derived from task performance processes (e.g., button pushes, activity tracking, mouse movement)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:cardiovascular a owl:Class ;
+    rdfs:subClassOf meas:sympathetic .
+
+meas:cognition a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:cognitiveLoad a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:cohesion a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:communicationFlow a owl:Class ;
+    rdfs:comment "Communication measures derived from temporal dimensions of communicaiton (duration, exchange sequence)" ;
+    rdfs:subClassOf meas:communication .
+
+meas:conflict a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:coordination a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:crossLevel a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:decisionMaking a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:dyad a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:electrodermal a owl:Class ;
+    rdfs:subClassOf meas:sympathetic .
+
+meas:engagementCommitment a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:eyeMovement a owl:Class ;
+    rdfs:label "eye movement" ;
+    rdfs:comment "Behavioral measures derived from eye tracking and pupliometery" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:gesture a owl:Class ;
+    rdfs:comment "Behavioral measures derived from an analyticTechnique of physical para-linguistic communication (e.g., hand gestures)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "has description" ;
+    rdfs:comment "description of what the measure is" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( meas:Measure meas:Manipulation ) ] ;
+    rdfs:range xsd:string .
+
+meas:hasInterpretation a owl:DatatypeProperty ;
+    rdfs:label "has interpretation" ;
+    rdfs:comment "description of how increasing or decreasing values of the scale are interpreted" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:hasLevelOfAnalysis a owl:ObjectProperty ;
+    rdfs:label "has level of analysis" ;
+    rdfs:comment "Specifies whether the measure is team-level, individual-level, etc." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:levelOfAnalysis ;
+    rdfs:subPropertyOf meas:usesMethod .
+
+meas:hasName a owl:DatatypeProperty ;
+    rdfs:label "has name" ;
+    rdfs:comment "name of measure" ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( meas:Measure meas:Manipulation ) ] ;
+    rdfs:range xsd:string .
+
+meas:hasScale a owl:DatatypeProperty ;
+    rdfs:label "has scale" ;
+    rdfs:comment "describes the scale used including type and range" ;
+    rdfs:domain meas:Measure ;
+    rdfs:range xsd:string .
+
+meas:includesModality a owl:ObjectProperty ;
+    rdfs:label "includes modality" ;
+    rdfs:comment "Indicates the source modality or signal the measure relies on." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Modality .
+
+meas:individual a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:manipulatesConstruct a owl:ObjectProperty ;
+    rdfs:label "manipulates construct" ;
+    rdfs:comment "Relates a manipulation to the construct it intends to manipulate." ;
+    rdfs:domain meas:Manipulation ;
+    rdfs:range meas:Construct .
+
+meas:measuresConstruct a owl:ObjectProperty ;
+    rdfs:label "measures construct" ;
+    rdfs:comment "Relates a measure to the construct it captures." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Construct .
+
+meas:networkAnalysis a owl:Class ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:parasympathetic a owl:Class ;
+    rdfs:subClassOf meas:autonomic .
+
+meas:physicalMovement a owl:Class ;
+    rdfs:comment "Behavioral measures derived from the physical movement of team members (e.g., postural sway, patterns of co-locatoin)" ;
+    rdfs:subClassOf meas:behavior .
+
+meas:problemSolving a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:resilience a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:satisfaction a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:semantic a owl:Class ;
+    rdfs:comment "Measures derived from an anlaysis of word meanings inlcuding semantic similarity or other methods using embeddings or classical content coding schemes" ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:sharedMentalModel a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:simpleAggregation a owl:Class ;
+    rdfs:comment "Techniques characterizig mean levels and variances" ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:situationalAwareness a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:somatic a owl:Class ;
+    rdfs:subClassOf meas:PNS .
+
+meas:stress a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:synchrony a owl:Class ;
+    rdfs:label "syncrhony" ;
+    rdfs:comment "Measure capturing mutual influence " ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:syntactic a owl:Class ;
+    rdfs:comment "Measures derived from part of speach use including sytle matching, pronoun use, and verb tense analyses." ;
+    rdfs:subClassOf meas:communicationContent .
+
+meas:taskType a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:team a owl:Class ;
+    rdfs:subClassOf meas:levelOfAnalysis .
+
+meas:teamFamiliarity a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:teamPerformance a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:teamSize a owl:Class ;
+    rdfs:subClassOf meas:Construct .
+
+meas:usesAnalyticTechnique a owl:ObjectProperty ;
+    rdfs:label "uses analytic technique" ;
+    rdfs:comment "Specifies the analytic approach used to compute the measure." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:analyticTechnique ;
+    rdfs:subPropertyOf meas:usesMethod .
+
+evid:primaryStudy a owl:Class ;
+    rdfs:label "primary study" ;
+    rdfs:comment "a primary study" ;
+    rdfs:subClassOf evid:Study .
+
+inst:construct_collaboration a meas:Construct ;
+    rdfs:label "Collaboration" .
+
+inst:level_cross_level a meas:levelOfAnalysis ;
+    rdfs:label "cross-level" .
+
+inst:level_dyads a meas:levelOfAnalysis ;
+    rdfs:label "Dyads" .
+
+inst:modality_algorithmic_manipulation a meas:Modality ;
+    rdfs:label "algorithmic manipulation" .
+
+inst:modality_communication_content_flow_and_paralinguistics a meas:Modality ;
+    rdfs:label "communication content flow and paralinguistics" ;
+    skos:broader meas:communication .
+
+inst:modality_context_descriptor a meas:Modality ;
+    rdfs:label "context descriptor" ;
+    skos:broader meas:communication .
+
+inst:modality_other_archival a meas:Modality ;
+    rdfs:label "other - archival" .
+
+inst:modality_physiology_postural_sway a meas:Modality ;
+    rdfs:label "physiology - postural sway" ;
+    skos:broader meas:physiology .
+
+inst:modality_temporal_factor a meas:Modality ;
+    rdfs:label "temporal factor" .
+
+inst:tech_acoustic_feature_extraction a meas:analyticTechnique ;
+    rdfs:label "acoustic feature extraction" .
+
+inst:tech_dsa_discrete_recurrence_analysis a meas:analyticTechnique ;
+    rdfs:label "DSA - discrete recurrence analysis" .
+
+inst:tech_dsa_entropy a meas:analyticTechnique ;
+    rdfs:label "DSA - entropy" .
+
+inst:tech_dsa_hurst_exponent a meas:analyticTechnique ;
+    rdfs:label "DSA - Hurst Exponent" .
+
+inst:tech_dsa_lyapunov_exponent a meas:analyticTechnique ;
+    rdfs:label "DSA - Lyapunov Exponent" .
+
+inst:tech_dsa_relaxation_time a meas:analyticTechnique ;
+    rdfs:label "DSA - Relaxation time" .
+
+inst:tech_language_analysis a meas:analyticTechnique ;
+    rdfs:label "language analysis -" .
+
+inst:tech_language_analysis_closed_vocabularly_pos_tagging_coh_metrix a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabularly - POS tagging (Coh-Metrix)" .
+
+inst:tech_language_analysis_closed_vocabulary_dictionary_indices a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed-vocabulary - dictionary indices" .
+
+inst:tech_language_analysis_closed_vocabulary_lexical_diversity_calculation a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed-vocabulary - lexical diversity calculation" .
+
+inst:tech_language_analysis_closed_vocabulary_liwc2007 a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - LIWC2007" .
+
+inst:tech_language_analysis_closed_vocabulary_liwc_function_words a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - LIWC - function words" .
+
+inst:tech_language_analysis_closed_vocabulary_pronoun_use a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - pronoun use" .
+
+inst:tech_language_analysis_open_vocabulary a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary" .
+
+inst:tech_language_analysis_open_vocabulary_cohesion_matrix a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - cohesion matrix" .
+
+inst:tech_language_analysis_open_vocabulary_pathfinder_algorithm a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - Pathfinder algorithm" .
+
+inst:tech_language_analysis_open_vocabulary_topic_modeling a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - topic modeling" .
+
+inst:tech_language_analysis_open_vocabulary_word_count a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - word count" .
+
+inst:tech_network_analysis_graph_intersection a meas:analyticTechnique ;
+    rdfs:label "network analysis - graph intersection" .
+
+inst:tech_network_analysis_relational_event_modelling a meas:analyticTechnique ;
+    rdfs:label "network analysis - relational event modelling" .
+
+inst:tech_observation_behavior_coding_using_cat a meas:analyticTechnique ;
+    rdfs:label "observation - behavior coding using CAT" .
+
+inst:tech_simple_aggregation_dispersion a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - dispersion" .
+
+inst:tech_simple_aggregation_median_split a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - median split" .
+
+inst:tech_simple_aggregation_percentage a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - percentage" .
+
+inst:tech_simple_aggregation_ratio_calculation a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - ratio calculation" .
+
+inst:tech_simple_aggregation_sum a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - sum" .
+
+inst:tech_simple_aggregation_sum_sentence_count_coh_metrix a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - sum - sentence count (Coh-Metrix)" .
+
+inst:tech_simple_aggregation_sum_word_count a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - sum - word count" .
+
+meas:informationTheoretic a owl:Class ;
+    rdfs:subClassOf meas:analyticTechnique .
+
+meas:observation a owl:Class ;
+    rdfs:comment "Measures generated by external obervers such as trainers, evaluators and assessors, or researchers" ;
+    rdfs:subClassOf meas:Modality .
+
+evid:metaAnalysis a owl:Class ;
+    rdfs:label "meta-analysis" ;
+    rdfs:comment "A meta-analytic study" ;
+    rdfs:subClassOf evid:Study .
+
+inst:construct_shared_mental_model a meas:Construct ;
+    rdfs:label "Shared mental model" .
+
+inst:modality_behavior_system_controls a meas:Modality ;
+    rdfs:label "behavior - system controls" ;
+    skos:broader meas:behavior .
+
+inst:modality_interview_coding a meas:Modality ;
+    rdfs:label "interview coding" ;
+    skos:broader meas:survey .
+
+inst:tech_dsa_nonlinear_prediction_error_rmse a meas:analyticTechnique ;
+    rdfs:label "DSA - nonlinear prediction error/RMSE" .
+
+inst:tech_dsa_rmse_of_reorganization a meas:analyticTechnique ;
+    rdfs:label "DSA - RMSE of reorganization" .
+
+inst:tech_language_analysis_closed_vocabulary_liwc_22 a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - LIWC-22" .
+
+inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - latent semantic analysis" .
+
+inst:tech_network_analysis a meas:analyticTechnique ;
+    rdfs:label "network analysis" .
+
+meas:PNS a owl:Class ;
+    rdfs:subClassOf meas:physiology .
+
+meas:autonomic a owl:Class ;
+    rdfs:subClassOf meas:PNS .
+
+meas:survey a owl:Class ;
+    rdfs:comment "Measures generated through self-report of individuals, which may or may not be aggregated to the team level" ;
+    rdfs:subClassOf meas:Modality .
+
+meas:sympathetic a owl:Class ;
+    rdfs:subClassOf meas:autonomic .
+
+meas:usesMethod a owl:ObjectProperty ;
+    rdfs:label "uses method" ;
+    rdfs:comment "Specifies approach used to compute or derive the measure." ;
+    rdfs:domain meas:Measure ;
+    rdfs:range meas:Method .
+
+evid:ClassLevelRelationship a owl:Class .
+
+inst:construct_resilience a meas:Construct ;
+    rdfs:label "Resilience" .
+
+inst:construct_teamwork a meas:Construct ;
+    rdfs:label "teamwork" .
+
+inst:tech_language_analysis_closed_vocabulary_liwc_language_analysis_human_coding a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed-vocabulary - LIWC; language analysis - human coding" .
+
+inst:tech_language_analysis_open_vocabulary_cosine_similarity a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - cosine similarity" .
+
+inst:tech_simple_aggregation_count a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - count" .
+
+inst:tech_simple_aggregation_difference a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - difference" .
+
+inst:tech_simple_aggregation_dispersion_coefficient_of_variation a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - dispersion - coefficient of variation" .
+
+inst:tech_simple_aggregation_proportion a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - proportion" .
+
+inst:tech_simple_aggregation_sequence_counts a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - sequence counts" .
+
+inst:tech_time_series_analysis a meas:analyticTechnique ;
+    rdfs:label "time-series analysis" .
+
+meas:Method a owl:Class .
+
+meas:communicationContent a owl:Class ;
+    rdfs:comment "Measures derived from an anlaysis of the words used in communicating amonst team members aggregated over time (e.g., to the performance phase or episode level)" ;
+    rdfs:subClassOf meas:communication .
+
+evid:Publication a owl:Class .
+
+inst:construct_interpersonal_team_process a meas:Construct ;
+    rdfs:label "Interpersonal Team Process" .
+
+inst:modality_behavior_movement a meas:Modality ;
+    rdfs:label "behavior - movement" ;
+    skos:broader meas:behavior .
+
+inst:modality_communication_paralinguistic a meas:Modality ;
+    rdfs:label "communication paralinguistic" ;
+    skos:broader meas:communication .
+
+inst:modality_physiology_eeg a meas:Modality ;
+    rdfs:label "physiology - EEG" ;
+    skos:broader meas:physiology .
+
+inst:modality_task_performance a meas:Modality ;
+    rdfs:label "task performance" .
+
+inst:tech_dsa_discrete_recurrence_analysis_det a meas:analyticTechnique ;
+    rdfs:label "DSA - discrete recurrence analysis %DET" .
+
+inst:tech_language_analysis_closed_vocabulary_dictionary_count_stressnet a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - dictionary count (STRESSnet)" .
+
+inst:tech_language_analysis_open_vocabulary_latent_semantic_analysis_lsa a meas:analyticTechnique ;
+    rdfs:label "language analysis - open vocabulary - Latent Semantic Analysis (LSA)" .
+
+meas:Manipulation a owl:Class ;
+    rdfs:label "experimental manipulation" ;
+    rdfs:comment "An experimental manipulation or intervention used as an independent variable" .
+
+evid:Study a owl:Class .
+
+inst:construct_team_composition a meas:Construct ;
+    rdfs:label "Team Composition" .
+
+inst:construct_workload a meas:Construct ;
+    rdfs:label "Workload" .
+
+inst:tech_dsa_average_mutual_information_ami a meas:analyticTechnique ;
+    rdfs:label "DSA - average mutual information (AMI)" .
+
+inst:tech_language_analysis_closed_vocabulary_liwc a meas:analyticTechnique ;
+    rdfs:label "language analysis - closed vocabulary - LIWC" .
+
+inst:tech_language_analysis_human_coding a meas:analyticTechnique ;
+    rdfs:label "language analysis - human coding" .
+
+inst:tech_other a meas:analyticTechnique ;
+    rdfs:label "other" .
+
+meas:physiology a owl:Class ;
+    rdfs:label "Measures generated from physiological monitoring of team members" ;
+    rdfs:subClassOf meas:Modality .
+
+inst:construct_adaptation a meas:Construct ;
+    rdfs:label "Adaptation" .
+
+inst:level_individual_team a meas:levelOfAnalysis ;
+    rdfs:label "Individual & team" .
+
+inst:modality_experimental_manipulation a meas:Modality ;
+    rdfs:label "experimental manipulation" .
+
+inst:modality_system_interaction_logs a meas:Modality ;
+    rdfs:label "system interaction logs" ;
+    skos:broader meas:behavior .
+
+inst:tech_dsa_recurrence_quantification_analysis_rqa a meas:analyticTechnique ;
+    rdfs:label "DSA - Recurrence Quantification Analysis (RQA)" .
+
+inst:tech_language_analysis_mixed_open_and_closed_liwc a meas:analyticTechnique ;
+    rdfs:label "language analysis - mixed open and closed - LIWC" .
+
+inst:tech_semantic_similarity a meas:analyticTechnique ;
+    rdfs:label "semantic similarity" .
+
+inst:tech_sentence_bert a meas:analyticTechnique ;
+    rdfs:label "sentence-BERT" .
+
+inst:tech_stressnet_dictionaries a meas:analyticTechnique ;
+    rdfs:label "STRESSnet dictionaries" .
+
+inst:level_group a meas:levelOfAnalysis ;
+    rdfs:label "Group" .
+
+inst:modality_physiology_cardiac_ibi a meas:Modality ;
+    rdfs:label "physiology - cardiac (IBI)" ;
+    skos:broader meas:physiology .
+
+inst:modality_observation a meas:Modality ;
+    rdfs:label "observation" ;
+    skos:broader meas:observation .
+
+inst:tech_dsa_cross_recurrence_quantification_analysis_crqa a meas:analyticTechnique ;
+    rdfs:label "DSA - Cross-Recurrence Quantification Analysis (CRQA)" .
+
+meas:behavior a owl:Class ;
+    rdfs:subClassOf meas:Modality .
+
+meas:communication a owl:Class ;
+    rdfs:subClassOf meas:Modality .
+
+inst:modality_communication_flow_and_content a meas:Modality ;
+    rdfs:label "communication flow and content" ;
+    skos:broader meas:communication .
+
+inst:tech_simple_aggregation_mean a meas:analyticTechnique ;
+    rdfs:label "simple aggregation - mean" .
+
+inst:level_dyad a meas:levelOfAnalysis ;
+    rdfs:label "dyad" .
+
+inst:tech_between_groups_factor a meas:analyticTechnique ;
+    rdfs:label "between-groups factor" .
+
+meas:levelOfAnalysis a owl:Class ;
+    rdfs:subClassOf meas:Method .
+
+inst:construct_team_affect a meas:Construct ;
+    rdfs:label "team affect" .
+
+evid:EffectSize a owl:Class .
+
+inst:tech_dsa_shannon_entropy a meas:analyticTechnique ;
+    rdfs:label "DSA - shannon entropy" .
+
+inst:modality_survey a meas:Modality ;
+    rdfs:label "survey" ;
+    skos:broader meas:survey .
+
+inst:modality_task_outcome a meas:Modality ;
+    rdfs:label "task outcome" ;
+    skos:broader meas:behavior .
+
+inst:construct_coordination a meas:Construct ;
+    rdfs:label "Coordination" .
+
+inst:level_individual a meas:levelOfAnalysis ;
+    rdfs:label "individual" .
+
+meas:Modality a owl:Class .
+
+inst:modality_communication_flow a meas:Modality ;
+    rdfs:label "communication flow" ;
+    skos:broader meas:communication .
+
+meas:Construct a owl:Class .
+
+inst:construct_task_outcome a meas:Construct ;
+    rdfs:label "task outcome" .
+
+inst:tech_simple_aggregation a meas:analyticTechnique ;
+    rdfs:label "simple aggregation" .
+
+inst:modality_communication_content a meas:Modality ;
+    rdfs:label "communication content" ;
+    skos:broader meas:communication .
+
+meas:analyticTechnique a owl:Class ;
+    rdfs:subClassOf meas:Method .
+
+inst:construct_communication a meas:Construct ;
+    rdfs:label "Communication" .
+
+inst:level_team a meas:levelOfAnalysis ;
+    rdfs:label "team" .
+
+meas:Measure a owl:Class .
+
+[] a owl:Ontology .
+
+[] a owl:Ontology .
+

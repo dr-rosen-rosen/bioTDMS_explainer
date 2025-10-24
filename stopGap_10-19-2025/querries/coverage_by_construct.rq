@@ -1,0 +1,11 @@
+PREFIX meas: <http://example.org/ontology/teamMeasurement#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?constructLabel (COUNT(DISTINCT ?meas) AS ?nMeasures)
+WHERE {
+  ?meas a meas:Measure ;
+        meas:measuresConstruct ?c .
+  ?c rdfs:label ?constructLabel .
+}
+GROUP BY ?constructLabel
+ORDER BY DESC(?nMeasures)

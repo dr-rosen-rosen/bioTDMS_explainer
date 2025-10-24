@@ -1,0 +1,19 @@
+PREFIX meas: <http://example.org/ontology/teamMeasurement#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Fill in VALUES with the local ids (without or with "measure_" prefix) or full IRIs used in your instances TTL.
+# Example:
+# VALUES ?id { "meas_001" "meas_002" "measure_abc123" }
+
+SELECT ?measure ?measureLabel ?modLabel ?techLabel ?constructLabel
+WHERE {
+  VALUES ?id {  }
+  BIND(IF(STRSTARTS(?id, "http"), IRI(?id),
+       IRI(CONCAT("http://example.org/ontology/instances#", IF(STRSTARTS(?id, "measure_"), ?id, CONCAT("measure_", ?id))))) AS ?measure)
+
+  OPTIONAL { ?measure rdfs:label ?measureLabel . }
+  OPTIONAL { ?measure meas:includesModality ?mod . ?mod rdfs:label ?modLabel . }
+  OPTIONAL { ?measure meas:usesAnalyticTechnique ?tech . ?tech rdfs:label ?techLabel . }
+  OPTIONAL { ?measure meas:measuresConstruct ?c . ?c rdfs:label ?constructLabel . }
+}
+ORDER BY ?measure
